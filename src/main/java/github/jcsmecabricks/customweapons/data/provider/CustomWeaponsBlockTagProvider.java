@@ -17,27 +17,27 @@ public class CustomWeaponsBlockTagProvider extends FabricTagProvider.BlockTagPro
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
-                .add(BlockInit.DEEPSLATE_SILVER_ORE)
-                .add(BlockInit.BLOCK_OF_SILVER)
-                .add(BlockInit.SILVER_ORE);
-
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .add(BlockInit.DEEPSLATE_SILVER_ORE)
-                .add(BlockInit.BLOCK_OF_SILVER)
-                .add(BlockInit.SILVER_ORE);
-
-        getOrCreateTagBuilder(TagList.Blocks.CUSTOMWEAPONS_TAG)
-                .add(BlockInit.DEEPSLATE_SILVER_ORE)
-                .add(BlockInit.BLOCK_OF_SILVER)
-                .add(BlockInit.SILVER_ORE);
-
-        getOrCreateTagBuilder(TagList.Blocks.INCORRECT_FOR_CUSTOMWEAPONS_TOOL);
-
-        getOrCreateTagBuilder(ModTags.Blocks.PAXEL_MINEABLE)
-                .forceAddTag(BlockTags.PICKAXE_MINEABLE)
-                .forceAddTag(BlockTags.AXE_MINEABLE)
-                .forceAddTag(BlockTags.SHOVEL_MINEABLE);
+//        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
+//                .add(BlockInit.DEEPSLATE_SILVER_ORE)
+//                .add(BlockInit.BLOCK_OF_SILVER)
+//                .add(BlockInit.SILVER_ORE);
+//
+//        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+//                .add(BlockInit.DEEPSLATE_SILVER_ORE)
+//                .add(BlockInit.BLOCK_OF_SILVER)
+//                .add(BlockInit.SILVER_ORE);
+//
+//        getOrCreateTagBuilder(TagList.Blocks.CUSTOMWEAPONS_TAG)
+//                .add(BlockInit.DEEPSLATE_SILVER_ORE)
+//                .add(BlockInit.BLOCK_OF_SILVER)
+//                .add(BlockInit.SILVER_ORE);
+//
+//        getOrCreateTagBuilder(TagList.Blocks.INCORRECT_FOR_CUSTOMWEAPONS_TOOL);
+//
+//        getOrCreateTagBuilder(ModTags.Blocks.PAXEL_MINEABLE)
+//                .forceAddTag(BlockTags.PICKAXE_MINEABLE)
+//                .forceAddTag(BlockTags.AXE_MINEABLE)
+//                .forceAddTag(BlockTags.SHOVEL_MINEABLE);
 
     }
 }

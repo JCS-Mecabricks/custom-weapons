@@ -1,12 +1,9 @@
 package github.jcsmecabricks.customweapons.entity.client.animation;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class ElephantAnimations {
-    public static final Animation IDLE = Animation.Builder.create(2f).looping()
+    public static final AnimationDefinition IDLE = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("nose",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -41,7 +38,7 @@ public class ElephantAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.95833f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation WALK = Animation.Builder.create(2f).looping()
+    public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(2f).looping()
             .addBoneAnimation("LegFR",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),

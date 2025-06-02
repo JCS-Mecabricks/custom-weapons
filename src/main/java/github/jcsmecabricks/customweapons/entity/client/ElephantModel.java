@@ -4,6 +4,8 @@ import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.entity.client.animation.ElephantAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.CamelAnimations;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -13,6 +15,8 @@ public class ElephantModel extends EntityModel<ElephantRenderState> {
     public static final EntityModelLayer ELEPHANT = new EntityModelLayer(Identifier.of(CustomWeapons.MOD_ID, "elephant"), "main");
     public static final EntityModelLayer ELEPHANT_ARMOR =
             new EntityModelLayer(Identifier.of(CustomWeapons.MOD_ID, "elephant_armor"), "armor");
+    private final Animation walkingAnimation;
+    private final Animation idlingAnimation;
     private final ModelPart elephant;
     private final ModelPart body;
     private final ModelPart tail;
@@ -35,6 +39,8 @@ public class ElephantModel extends EntityModel<ElephantRenderState> {
     private final ModelPart LegBL;
     public ElephantModel(ModelPart root) {
         super(root);
+        this.walkingAnimation = ElephantAnimations.WALK.createAnimation(root);
+        this.idlingAnimation = ElephantAnimations.IDLE.createAnimation(root);
         this.elephant = root.getChild("elephant");
         this.body = this.elephant.getChild("body");
         this.tail = this.body.getChild("tail");
@@ -148,8 +154,8 @@ public class ElephantModel extends EntityModel<ElephantRenderState> {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
         this.chests.visible = elephantRenderState.hasChest;
         this.setHeadAngles(elephantRenderState, elephantRenderState.relativeHeadYaw, elephantRenderState.pitch);
-        this.animateWalking(ElephantAnimations.WALK, elephantRenderState.limbSwingAnimationProgress, elephantRenderState.limbSwingAmplitude, 2.0F, 2.5F);
-        this.animate(elephantRenderState.idlingAnimationState, ElephantAnimations.IDLE, elephantRenderState.age, 1.0F);
+        this.walkingAnimation.applyWalking(elephantRenderState.limbSwingAnimationProgress, elephantRenderState.limbSwingAmplitude, 2.0F, 2.5F);
+        this.idlingAnimation.apply(elephantRenderState.idlingAnimationState, elephantRenderState.age, 1.0F);
     }
 
     private void setHeadAngles(ElephantRenderState elephantRenderState, float headYaw, float headPitch) {
