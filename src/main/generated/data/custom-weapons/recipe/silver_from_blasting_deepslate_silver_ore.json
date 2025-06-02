@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "group": "customweapons",
+  "ingredient": "custom-weapons:deepslate_silver_ore",
+  "result": {
+    "id": "custom-weapons:silver"
+  }
+}

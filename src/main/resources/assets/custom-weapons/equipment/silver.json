@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "custom-weapons:silver"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "custom-weapons:silver"
+      }
+    ]
+  }
+}

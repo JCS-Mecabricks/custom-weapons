@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "custom-weapons:block_of_silver"
+  ],
+  "result": {
+    "count": 9,
+    "id": "custom-weapons:silver"
+  }
+}

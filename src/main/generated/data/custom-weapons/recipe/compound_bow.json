@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:bow",
+    "E": "custom-weapons:silver",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    " S ",
+    "EBE",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:compound_bow"
+  }
+}

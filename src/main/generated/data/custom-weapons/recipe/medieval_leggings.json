@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "S": "custom-weapons:silver"
+  },
+  "pattern": [
+    "SIS",
+    "I I",
+    "S S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:medieval_leggings"
+  }
+}

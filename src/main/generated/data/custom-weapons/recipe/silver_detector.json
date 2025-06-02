@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": "minecraft:stick",
+    "S": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    " E ",
+    " E ",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:silver_detector"
+  }
+}

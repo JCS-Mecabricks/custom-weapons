@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": "custom-weapons:silver",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "  L",
+    " S ",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:spear"
+  }
+}

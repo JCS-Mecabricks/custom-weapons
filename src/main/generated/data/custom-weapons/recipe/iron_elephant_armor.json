@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "T": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "TTT",
+    "TTT",
+    "T T"
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:iron_elephant_armor"
+  }
+}

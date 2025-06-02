@@ -1,0 +1,9 @@
+// 1.21.5	-999999999-01-01T00:00:00	Custom Weapons/Tags for minecraft:item
+5a1fb1058a2519581b6beb6ede55e47dcc1ea923 data/custom-weapons/tags/item/paxel_mineable.json
+31cd652e44fff05b6fc1fedcc2fcd7074e7db40d data/custom-weapons/tags/item/shields.json
+31cd652e44fff05b6fc1fedcc2fcd7074e7db40d data/custom-weapons/tags/item/silver.json
+c890be54eb464490148a2f1f598963c1bfb2c8eb data/minecraft/tags/item/enchantable/armor.json
+495adff88322d912fbc6a46dc80226348be16ab6 data/minecraft/tags/item/enchantable/bow.json
+495adff88322d912fbc6a46dc80226348be16ab6 data/minecraft/tags/item/enchantable/crossbow.json
+9e08526e1bf8bec419978b3cdecfcb96625980e9 data/minecraft/tags/item/swords.json
+31cd652e44fff05b6fc1fedcc2fcd7074e7db40d data/minecraft/tags/item/trim_materials.json

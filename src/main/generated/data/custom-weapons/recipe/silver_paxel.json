@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:iron_shovel",
+    "E": "minecraft:iron_axe",
+    "J": "minecraft:iron_pickaxe",
+    "K": "custom-weapons:block_of_silver"
+  },
+  "pattern": [
+    " E ",
+    "AKJ"
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:silver_paxel"
+  }
+}

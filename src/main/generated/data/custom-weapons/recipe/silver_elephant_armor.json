@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "T": "custom-weapons:silver"
+  },
+  "pattern": [
+    "TTT",
+    "TTT",
+    "T T"
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:silver_elephant_armor"
+  }
+}

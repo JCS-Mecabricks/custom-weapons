@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "T": "minecraft:netherite_ingot"
+  },
+  "pattern": [
+    "TTT",
+    "TTT",
+    "T T"
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:netherite_elephant_armor"
+  }
+}

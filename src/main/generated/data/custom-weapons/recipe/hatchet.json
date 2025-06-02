@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "S": "custom-weapons:silver",
+    "T": "minecraft:stick"
+  },
+  "pattern": [
+    "SSS",
+    "ST ",
+    " T "
+  ],
+  "result": {
+    "count": 3,
+    "id": "custom-weapons:hatchet"
+  }
+}

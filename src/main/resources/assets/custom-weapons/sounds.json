@@ -1,0 +1,14 @@
+{
+  "elephant_ambient": {
+    "subtitle": "sounds.custom-weapons.elephant_ambient",
+    "sounds": [
+      "custom-weapons:elephant_ambient"
+    ]
+  },
+  "elephant_hurt": {
+    "subtitle": "sounds.custom-weapons.elephant_hurt",
+    "sounds": [
+      "custom-weapons:elephant_hurt"
+    ]
+  }
+}

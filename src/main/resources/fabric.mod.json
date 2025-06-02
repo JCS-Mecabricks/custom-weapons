@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "custom-weapons",
+	"version": "${version}",
+	"name": "Custom Weapons",
+	"description": "This mod adds new weapons, armor, and enchantments to your game",
+	"authors": [
+		"JCS"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/custom-weapons/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"github.jcsmecabricks.customweapons.CustomWeapons"
+		],
+		"client": [
+			"github.jcsmecabricks.customweapons.CustomWeaponsClient"
+		],
+		"fabric-datagen": [
+			"github.jcsmecabricks.customweapons.CustomWeaponsDataGenerator"
+		]
+	},
+	"mixins": [
+		"custom-weapons.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

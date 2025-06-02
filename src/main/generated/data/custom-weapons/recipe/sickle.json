@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " II",
+    "  I",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "custom-weapons:sickle"
+  }
+}
