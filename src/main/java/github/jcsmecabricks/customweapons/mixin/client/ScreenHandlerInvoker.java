@@ -1,4 +1,4 @@
-package github.jcsmecabricks.customweapons.mixin;
+package github.jcsmecabricks.customweapons.mixin.client;
 
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;

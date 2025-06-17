@@ -1,4 +1,4 @@
-package github.jcsmecabricks.customweapons.mixin;
+package github.jcsmecabricks.customweapons.mixin.client;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HorseScreen;

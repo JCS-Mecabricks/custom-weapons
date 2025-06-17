@@ -13,7 +13,7 @@ import net.minecraft.world.biome.BiomeKeys;
 public class ModEntitySpawns {
     public static void addSpawns() {
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.SAVANNA),
-                SpawnGroup.CREATURE, ModEntities.ELEPHANT, 25, 2, 5);
+                SpawnGroup.CREATURE, ModEntities.ELEPHANT, 50, 2, 5);
         SpawnRestriction.register(ModEntities.ELEPHANT, SpawnLocationTypes.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 

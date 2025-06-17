@@ -3,14 +3,16 @@
 	"package": "github.jcsmecabricks.customweapons.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"LivingEntityMixin",
+		"ModEntityDataSaverMixin",
+		"ItemStackMixin"
 	],
 	"client": [
-		"AbstractClientPlayerEntityMixin",
-		"HorseScreenHandlerMixin",
-		"ScreenHandlerInvoker",
-		"HorseScreenAccessor",
-		"HorseScreenMixin"
+		"client.AbstractClientPlayerEntityMixin",
+		"client.HorseScreenHandlerMixin",
+		"client.ScreenHandlerInvoker",
+		"client.HorseScreenAccessor",
+		"client.HorseScreenMixin"
 		],
 	"injectors": {
 		"defaultRequire": 1

@@ -1,4 +1,4 @@
-package github.jcsmecabricks.customweapons.mixin;
+package github.jcsmecabricks.customweapons.mixin.client;
 
 import github.jcsmecabricks.customweapons.entity.custom.ElephantEntity;
 import net.minecraft.client.gui.DrawContext;

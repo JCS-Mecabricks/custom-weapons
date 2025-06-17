@@ -6,6 +6,8 @@
   "sounds.custom-weapons.elephant_hurt": "Elephant Hurt",
   "sounds.custom-weapons.elephant_ambient": "Elephant Ambient",
   "item.custom-weapons.compound_bow": "Compound Bow",
+  "key.category.custom-weapons": "Custom Weapons",
+  "key.custom-weapons.dead_eye": "Dead Eye Key",
   "item.custom-weapons.scythe": "Scythe",
   "item.custom-weapons.sickle": "Sickle",
   "item.custom-weapons.spartan_chestplate": "Spartan Chestplate",

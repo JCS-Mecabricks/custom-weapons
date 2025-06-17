@@ -1,4 +1,4 @@
-package github.jcsmecabricks.customweapons.mixin;
+package github.jcsmecabricks.customweapons.mixin.client;
 
 import com.mojang.authlib.GameProfile;
 import github.jcsmecabricks.customweapons.init.ItemInit;

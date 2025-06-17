@@ -1,17 +1,14 @@
-package github.jcsmecabricks.customweapons.mixin;
+package github.jcsmecabricks.customweapons.mixin.client;
 
 import github.jcsmecabricks.customweapons.custom.ElephantArmorItem;
 import github.jcsmecabricks.customweapons.entity.custom.ElephantEntity;
 import github.jcsmecabricks.customweapons.slot.ModArmorSlot;
-import net.minecraft.block.Block;
-import net.minecraft.block.DyedCarpetBlock;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.HorseScreenHandler;
-import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +24,7 @@ public abstract class HorseScreenHandlerMixin {
         Identifier identifier = Identifier.ofVanilla("container/slot/horse_armor");
         Inventory armorInventory = elephant.createEquipmentInventory(EquipmentSlot.BODY);
 
-        ScreenHandlerInvoker self = (ScreenHandlerInvoker)(Object)this;
+        ScreenHandlerInvoker self = (ScreenHandlerInvoker) this;
 
         self.callAddSlot(new ModArmorSlot(armorInventory, elephant, EquipmentSlot.BODY, 0, 8, 36, identifier) {
             @Override
