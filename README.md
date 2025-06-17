@@ -1,7 +1,6 @@
 <div align="center"><p>
 
-A Fabric Mod that adds new weapons armor and enchantments to your game
-Check more details when playing the game
+Custom Weapons is a mod that adds more combat to Minecraft and silver ores. The silver can be made into strong and overpowered combat items.
 
 ## Description
  Here are the Items and Recipes in the mod:
