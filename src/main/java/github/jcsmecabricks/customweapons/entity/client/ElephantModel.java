@@ -11,7 +11,20 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
+import java.util.List;
+import java.util.Map;
+
 public class ElephantModel extends EntityModel<ElephantRenderState> {
+    public float originX;
+    public float originY;
+    public float originZ;
+    public float pitch;
+    public float yaw;
+    public float roll;
+    public float xScale = 1.0F;
+    public float yScale = 1.0F;
+    public float zScale = 1.0F;
+    private ModelTransform defaultTransform;
     public static final EntityModelLayer ELEPHANT = new EntityModelLayer(Identifier.of(CustomWeapons.MOD_ID, "elephant"), "main");
     public static final EntityModelLayer ELEPHANT_ARMOR =
             new EntityModelLayer(Identifier.of(CustomWeapons.MOD_ID, "elephant_armor"), "armor");
@@ -163,30 +176,40 @@ public class ElephantModel extends EntityModel<ElephantRenderState> {
         this.head.pitch = elephantRenderState.pitch * 0.017453292F;
     }
 
-    public void copyStateTo(ElephantModel target) {
-        target.elephant.copyTransform(this.elephant);
-        target.body.copyTransform(this.body);
-        target.tail.copyTransform(this.tail);
-        target.head.copyTransform(this.head);
-        target.ears.copyTransform(this.ears);
-        target.left.copyTransform(this.left);
-        target.right.copyTransform(this.right);
-        target.nose.copyTransform(this.nose);
-        target.tusks.copyTransform(this.tusks);
-        target.blanket.copyTransform(this.blanket);
-        target.chests.copyTransform(this.chests);
-        target.tier1.copyTransform(this.tier1);
-        target.tier2.copyTransform(this.tier2);
-        target.tier3.copyTransform(this.tier3);
-        target.hood.copyTransform(this.hood);
-        target.legs.copyTransform(this.legs);
-        target.LegFR.copyTransform(this.LegFR);
-        target.LegFL.copyTransform(this.LegFL);
-        target.LegBR.copyTransform(this.LegBR);
-        target.LegBL.copyTransform(this.LegBL);
+    public void copyTransform(ModelPart part) {
+        this.xScale = part.xScale;
+        this.yScale = part.yScale;
+        this.zScale = part.zScale;
+        this.pitch = part.pitch;
+        this.yaw = part.yaw;
+        this.roll = part.roll;
+        this.originX = part.originX;
+        this.originY = part.originY;
+        this.originZ = part.originZ;
     }
 
-
+    public void copyStateTo(ElephantModel target) {
+        copyTransform(this.elephant);
+        copyTransform(this.body);
+        copyTransform(this.tail);
+        copyTransform(this.head);
+        copyTransform(this.ears);
+        copyTransform(this.left);
+        copyTransform(this.right);
+        copyTransform(this.nose);
+        copyTransform(this.tusks);
+        copyTransform(this.blanket);
+        copyTransform(this.chests);
+        copyTransform(this.tier1);
+        copyTransform(this.tier2);
+        copyTransform(this.tier3);
+        copyTransform(this.hood);
+        copyTransform(this.legs);
+        copyTransform(this.LegFR);
+        copyTransform(this.LegFL);
+        copyTransform(this.LegBR);
+        copyTransform(this.LegBL);
+    }
 
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ElephantRenderState state, float limbAngle, float limbDistance) {
 

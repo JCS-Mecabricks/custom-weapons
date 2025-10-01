@@ -2,6 +2,7 @@ package github.jcsmecabricks.customweapons.entity.client;
 
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.entity.custom.ElephantEntity;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -11,7 +12,7 @@ public class ElephantRenderer extends MobEntityRenderer<ElephantEntity, Elephant
     private static final Identifier TEXTURE = Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/elephant.png");
     public ElephantRenderer(EntityRendererFactory.Context context) {
         super(context, new ElephantModel(context.getPart(ElephantModel.ELEPHANT)), 1.5F);
-        this.addFeature(new ElephantArmorFeatureRenderer(this, context.getEntityModels()));
+        this.addFeature(new ElephantArmorFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
     }
 
     @Override

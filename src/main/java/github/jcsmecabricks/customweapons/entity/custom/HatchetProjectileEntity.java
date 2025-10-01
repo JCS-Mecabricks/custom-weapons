@@ -61,11 +61,11 @@ public class HatchetProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        if (!this.getWorld().isClient()) {
-            ServerWorld world = (ServerWorld) this.getWorld();
+        if (!this.getEntityWorld().isClient()) {
+            ServerWorld world = (ServerWorld) this.getEntityWorld();
             Entity entity = entityHitResult.getEntity();
             entity.damage(world, this.getDamageSources().thrown(this, this.getOwner()), 7);
-            this.getWorld().sendEntityStatus(this, (byte) 9);
+            this.getEntityWorld().sendEntityStatus(this, (byte) 9);
             this.discard();
         }
     }

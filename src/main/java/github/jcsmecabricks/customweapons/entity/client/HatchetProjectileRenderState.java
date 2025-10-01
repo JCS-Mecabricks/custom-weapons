@@ -6,7 +6,7 @@ public class HatchetProjectileRenderState extends EntityRenderState {
     public float yaw;
     public float pitch;
     private float rotation;
-    public float tickDelta;
+    public int light;
     public boolean isGrounded;
     public float getRenderingRotation;
     public float groundedPitch;
@@ -21,6 +21,7 @@ public class HatchetProjectileRenderState extends EntityRenderState {
         groundedPitch = 0f;
         groundedYaw = 0f;
         groundedTicks = 0;
+        light = 0xF000F0;
     }
 
     public float getRenderingRotation() {

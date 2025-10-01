@@ -21,7 +21,7 @@ public class HatchetItem extends Item{
         ItemStack itemStack = user.getStackInHand(hand);
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW,
                 SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
-        if (!world.isClient) {
+        if (!world.isClient()) {
             HatchetProjectileEntity hatchet = new HatchetProjectileEntity(world, user);
             hatchet.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.5f, 0f);
             world.spawnEntity(hatchet);

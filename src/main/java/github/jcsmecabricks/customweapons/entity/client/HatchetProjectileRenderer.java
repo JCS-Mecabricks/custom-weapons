@@ -3,17 +3,18 @@ package github.jcsmecabricks.customweapons.entity.client;
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.entity.custom.HatchetProjectileEntity;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.TridentEntityRenderState;
 import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.state.CameraRenderState;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+
+import java.util.List;
 
 public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileEntity, HatchetProjectileRenderState> {
     private static final Identifier TEXTURE = Identifier.of(CustomWeapons.MOD_ID, "textures/entity/hatchet/hatchet.png");
@@ -24,7 +25,7 @@ public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileE
     }
 
     @Override
-    public void render(HatchetProjectileRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(HatchetProjectileRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
         matrices.push();
 
         if (!state.isGrounded) {
@@ -38,11 +39,13 @@ public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileE
             matrices.translate(0, -0.6f, 0);
         }
 
-        VertexConsumer vertexConsumer = ItemRenderer.getItemGlintConsumer(vertexConsumers, model.getLayer(TEXTURE), false, false);
-        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+        List<RenderLayer> list = ItemRenderer.getGlintRenderLayers(this.model.getLayer(TEXTURE), false, false);
+        for(int i = 0; i < list.size(); ++i) {
+            queue.getBatchingQueue(i).submitModel(this.model, state, matrices, (RenderLayer)list.get(i), state.light, OverlayTexture.DEFAULT_UV, -1, (Sprite)null, state.outlineColor, null);
+        }
 
         matrices.pop();
-        super.render(state, matrices, vertexConsumers, light);
+        super.render(state, matrices, queue, cameraState);
     }
 
 

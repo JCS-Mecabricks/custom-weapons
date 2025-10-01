@@ -10,10 +10,11 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
-    public static final String CUSTOM_WEAPONS_KEY_CATEGORY = "key.category.custom-weapons";
+    public static final KeyBinding.Category CUSTOM_WEAPONS_KEY_CATEGORY = KeyBinding.Category.create(Identifier.of("key.category.custom-weapons", "main"));
     public static final String KEY_DEAD_EYE = "key.custom-weapons.dead_eye";
 
     public static KeyBinding deadEyeKey;

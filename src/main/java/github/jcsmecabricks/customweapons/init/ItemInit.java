@@ -5,29 +5,23 @@ import github.jcsmecabricks.customweapons.custom.*;
 import github.jcsmecabricks.customweapons.entity.ModEntities;
 import github.jcsmecabricks.customweapons.materials.CustomWeaponsToolMaterials;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
-import net.minecraft.component.type.BlocksAttacksComponent;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.TypedEntityData;
 import net.minecraft.item.Item;
-import net.minecraft.item.ShieldItem;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.function.Function;
 
 public class ItemInit {
+    private final NbtCompound nbtCompound;
     public static final Item SILVER = register("silver", new Item(new Item.Settings()
             .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "silver")))));
 
@@ -91,9 +85,12 @@ public class ItemInit {
                     .maxCount(16)
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "hatchet")))));
 
-    public static final Item ELEPHANT_SPAWN_EGG = register("elephant_spawn_egg",
-            new SpawnEggItem(ModEntities.ELEPHANT, new Item.Settings()
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "elephant_spawn_egg")))));
+    public static final Item ELEPHANT_SPAWN_EGG = registerSpawnEggItem("elephant_spawn_egg",
+            settings -> new SpawnEggItem(settings.component(
+                    DataComponentTypes.ENTITY_DATA,
+                    TypedEntityData.create(ModEntities.ELEPHANT, new NbtCompound())
+            ))
+    );
 
     public static final Item IRON_ELEPHANT_ARMOR = register("iron_elephant_armor",
             new ElephantArmorItem(ArmorMaterials.IRON, new Item.Settings()
@@ -111,8 +108,17 @@ public class ItemInit {
             new ElephantArmorItem(ArmorMaterials.NETHERITE, new Item.Settings()
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "netherite_elephant_armor")))));
 
+    public ItemInit(NbtCompound nbtCompound) {
+        this.nbtCompound = nbtCompound;
+    }
+
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(CustomWeapons.MOD_ID, name), item);
+    }
+
+    private static Item registerSpawnEggItem(String name, Function<Item.Settings, Item> function) {
+        return Registry.register(Registries.ITEM, Identifier.of(CustomWeapons.MOD_ID, name),
+                function.apply(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, name)))));
     }
 
     public static <T extends Item> T register(String name, T item) {
