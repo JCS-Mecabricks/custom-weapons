@@ -1,12 +1,12 @@
 {
   "parent": "custom-weapons:silver/obtain_armor",
   "criteria": {
-    "shot_trident": {
+    "threw_hatchet": {
       "conditions": {
         "damage": {
           "type": {
             "direct_entity": {
-              "type": "minecraft:trident"
+              "type": "custom-weapons:hatchet"
             },
             "tags": [
               {
@@ -29,12 +29,12 @@
       "id": "custom-weapons:hatchet"
     },
     "title": {
-      "translate": "advancements.adventure.v.title"
+      "translate": "advancements.adventure.throw_hatchet.title"
     }
   },
   "requirements": [
     [
-      "shot_trident"
+      "threw_hatchet"
     ]
   ],
   "sends_telemetry_event": true

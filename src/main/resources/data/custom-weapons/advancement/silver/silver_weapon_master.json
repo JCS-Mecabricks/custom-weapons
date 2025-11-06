@@ -1,0 +1,55 @@
+{
+  "parent": "custom-weapons:silver/paxel_tool",
+  "criteria": {
+    "silver_weapons": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:compound_bow"
+          },
+          {
+            "items": "custom-weapons:scythe"
+          },
+          {
+            "items": "custom-weapons:sickles"
+          },
+          {
+            "items": "custom-weapons:spear"
+          },
+          {
+            "items": "custom-weapons:silver_hammer"
+          },
+          {
+            "items": "custom-weapons:silver_paxel"
+          },
+          {
+            "items": "custom-weapons:hatchet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.silver.silver_weapon_master.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "custom-weapons:sickles"
+    },
+    "title": {
+      "translate": "advancements.silver.silver_weapon_master.title"
+    }
+  },
+  "requirements": [
+    [
+      "silver_weapons"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
+  },
+  "sends_telemetry_event": true
+}

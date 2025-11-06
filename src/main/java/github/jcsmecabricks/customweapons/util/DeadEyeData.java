@@ -21,12 +21,12 @@ public class DeadEyeData {
     }
 
     public static boolean isDeadEyeActive(IEntityDataSaver player) {
-        return player.getPersistentData().getBoolean("dead_eye_active").get();
+        return player.getPersistentData().getBoolean("dead_eye_active").orElse(false);
     }
 
     public static int addDeadEye(IEntityDataSaver player, int amount) {
         NbtCompound nbt = player.getPersistentData();
-        int deadEye = nbt.getInt("dead_eye").get();
+        int deadEye = nbt.getInt("dead_eye").orElse(0);
 
         deadEye = Math.min(deadEye + amount, 10);
         nbt.putInt("dead_eye", deadEye);
@@ -40,7 +40,7 @@ public class DeadEyeData {
 
     public static int removeDeadEye(IEntityDataSaver player, int amount) {
         NbtCompound nbt = player.getPersistentData();
-        int deadEye = nbt.getInt("dead_eye").get();
+        int deadEye = nbt.getInt("dead_eye").orElse(0);
 
         deadEye = Math.max(deadEye - amount, 0);
         nbt.putInt("dead_eye", deadEye);

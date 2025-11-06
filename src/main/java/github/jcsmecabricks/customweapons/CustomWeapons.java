@@ -8,8 +8,6 @@ import github.jcsmecabricks.customweapons.event.PlayerTickHandler;
 import github.jcsmecabricks.customweapons.init.*;
 import github.jcsmecabricks.customweapons.networking.ModMessages;
 import github.jcsmecabricks.customweapons.sound.ModSounds;
-import github.jcsmecabricks.customweapons.util.DeadEyeData;
-import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
 import github.jcsmecabricks.customweapons.worldgen.ModEntitySpawns;
 import github.jcsmecabricks.customweapons.worldgen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
@@ -17,7 +15,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.block.Blocks;
@@ -27,7 +24,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -85,6 +81,12 @@ public class CustomWeapons implements ModInitializer {
 			entries.addAfter(ItemInit.SICKLE, ItemInit.SICKLES);
 			entries.addAfter(ItemInit.SICKLES, ItemInit.SPEAR);
 		});
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
+            entries.addAfter(Items.IRON_BOOTS, ItemInit.SILVER_HELMET);
+            entries.addAfter(ItemInit.SILVER_HELMET, ItemInit.SILVER_CHESTPLATE);
+            entries.addAfter(ItemInit.SILVER_CHESTPLATE, ItemInit.SILVER_LEGGINGS);
+            entries.addAfter(ItemInit.SILVER_LEGGINGS, ItemInit.SILVER_BOOTS);
+        });
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
 			entries.addAfter(Items.IRON_INGOT, ItemInit.SILVER);
 		});

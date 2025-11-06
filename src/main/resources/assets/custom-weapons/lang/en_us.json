@@ -37,5 +37,11 @@
   "advancements.silver.paxel_tool.title": "Tool Master",
   "advancements.adventure.archer_master.description": "Shoot using a Compound Bow",
   "advancements.adventure.archer_master.title": "Archer Master",
+  "advancements.adventure.throw_hatchet.description": "Bury the Hatch",
+  "advancements.adventure.throw_hatchet.title": "Time to Bury The Hatchet",
+  "advancements.silver.guardian.description": "Acquire the Silver Hammer",
+  "advancements.silver.guardian.title": "The Guardian",
+  "advancements.silver.silver_weapon_master.description": "Obtain all silver tools and weapons",
+  "advancements.silver.silver_weapon_master.title": "Silver Weapon Master",
   "itemGroup.custom-weapons.customweapons_group": "Custom Weapons"
 }

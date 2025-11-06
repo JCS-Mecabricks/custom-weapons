@@ -1,0 +1,33 @@
+{
+  "parent": "custom-weapons:silver/throw_hatchet",
+  "criteria": {
+    "silver_hammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:silver_hammer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.silver.guardian.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "custom-weapons:silver_hammer"
+    },
+    "title": {
+      "translate": "advancements.silver.guardian.title"
+    }
+  },
+  "requirements": [
+    [
+      "silver_hammer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
