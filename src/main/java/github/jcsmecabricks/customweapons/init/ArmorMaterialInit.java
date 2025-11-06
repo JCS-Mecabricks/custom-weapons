@@ -15,11 +15,11 @@ import java.util.Map;
 public interface ArmorMaterialInit {
      ArmorMaterial SILVER = new ArmorMaterial(
             30, createDefenseMap(2,
-            4,
+            6,
             6,
             2,
             9),
-            15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F,
+            18, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F,
             ModTags.Items.SILVER, EquipmentModelInit.SILVER
     );
 

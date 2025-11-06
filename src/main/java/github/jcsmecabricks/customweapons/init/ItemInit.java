@@ -60,25 +60,25 @@ public class ItemInit {
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM,
                             Identifier.of(CustomWeapons.MOD_ID, "silver_paxel")))));
 
-    public static final Item SPARTAN_HELM = register("spartan_helm",
+    public static final Item SILVER_HELMET = register("silver_helmet",
             new Item( new Item.Settings()
                     .armor(ArmorMaterialInit.SILVER, EquipmentType.HELMET)
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "spartan_helm")))));
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "silver_helmet")))));
 
-    public static final Item SPARTAN_CHESTPLATE = register("spartan_chestplate",
+    public static final Item SILVER_CHESTPLATE = register("silver_chestplate",
             new Item( new Item.Settings()
                     .armor(ArmorMaterialInit.SILVER, EquipmentType.CHESTPLATE)
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "spartan_chestplate")))));
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "silver_chestplate")))));
 
-    public static final Item MEDIEVAL_LEGGINGS = register("medieval_leggings",
+    public static final Item SILVER_LEGGINGS = register("silver_leggings",
             new Item(new Item.Settings()
                     .armor(ArmorMaterialInit.SILVER, EquipmentType.LEGGINGS)
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "medieval_leggings")))));
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "silver_leggings")))));
 
-    public static final Item MEDIEVAL_BOOTS = register("medieval_boots",
+    public static final Item SILVER_BOOTS = register("silver_boots",
             new Item(new Item.Settings()
                     .armor(ArmorMaterialInit.SILVER, EquipmentType.BOOTS)
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "medieval_boots")))));
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "silver_boots")))));
 
     public static final Item HATCHET = register("hatchet",
             new HatchetItem(new Item.Settings()

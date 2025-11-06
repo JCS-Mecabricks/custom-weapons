@@ -1,0 +1,31 @@
+{
+  "parent": "custom-weapons:silver/obtain_armor",
+  "criteria": {
+    "shot_compound_bow": {
+      "conditions": {
+        "item": {
+          "items": ["custom-weapons:compound_bow"]
+        }
+      },
+      "trigger": "custom-weapons:shot_compound_bow"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.adventure.archer_master.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "custom-weapons:compound_bow"
+    },
+    "title": {
+      "translate": "advancements.adventure.archer_master.title"
+    }
+  },
+  "requirements": [
+    [
+      "shot_compound_bow"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

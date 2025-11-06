@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 
 public record DeadEyeSyncDataS2CPacket(int deadEyeValue) implements CustomPayload {
     public static final Id<DeadEyeSyncDataS2CPacket> ID =
-            new Id<>(Identifier.of(CustomWeapons.MOD_ID, "dead_eye"));
+            new Id<>(Identifier.of(CustomWeapons.MOD_ID, "dead_eye_sync"));
 
     public static final PacketCodec<PacketByteBuf, DeadEyeSyncDataS2CPacket> CODEC =
             PacketCodec.of(DeadEyeSyncDataS2CPacket::write, DeadEyeSyncDataS2CPacket::read);
@@ -26,4 +26,3 @@ public record DeadEyeSyncDataS2CPacket(int deadEyeValue) implements CustomPayloa
         return ID;
     }
 }
-

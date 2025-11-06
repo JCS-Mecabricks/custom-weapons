@@ -11,7 +11,6 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 
 import java.util.List;
@@ -70,41 +69,31 @@ public class CustomWeaponsRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.IRON_PICKAXE), conditionsFromItem(Items.IRON_PICKAXE))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SPARTAN_CHESTPLATE)
+                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_CHESTPLATE)
                         .input('S', ItemInit.SILVER)
-                        .input('G', Items.GOLD_INGOT)
                         .pattern("S S")
-                        .pattern("GGG")
-                        .pattern("GGG")
+                        .pattern("SSS")
+                        .pattern("SSS")
                         .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SPARTAN_HELM)
+                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_HELMET)
                         .input('S', ItemInit.SILVER)
-                        .input('G', Items.GOLD_INGOT)
-                        .input('F', Items.FEATHER)
-                        .pattern(" F ")
-                        .pattern("GGG")
-                        .pattern("GSG")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
-                        .criterion(hasItem(Items.FEATHER), conditionsFromItem(Items.FEATHER))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.TOOLS, ItemInit.MEDIEVAL_LEGGINGS)
-                        .input('S', ItemInit.SILVER)
-                        .input('I', Items.IRON_INGOT)
-                        .pattern("SIS")
-                        .pattern("I I")
+                        .pattern("SSS")
                         .pattern("S S")
                         .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.MEDIEVAL_BOOTS)
+                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_LEGGINGS)
                         .input('S', ItemInit.SILVER)
-                        .pattern("   ")
+                        .pattern("SSS")
+                        .pattern("S S")
+                        .pattern("S S")
+                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
+                        .offerTo(exporter);
+
+                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_BOOTS)
+                        .input('S', ItemInit.SILVER)
                         .pattern("S S")
                         .pattern("S S")
                         .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))

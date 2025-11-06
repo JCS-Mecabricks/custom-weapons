@@ -1,0 +1,33 @@
+{
+  "parent": "custom-weapons:silver/obtain_armor",
+  "criteria": {
+    "paxel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:silver_paxel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.silver.paxel_tool.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "custom-weapons:silver_paxel"
+    },
+    "title": {
+      "translate": "advancements.silver.paxel_tool.title"
+    }
+  },
+  "requirements": [
+    [
+      "paxel"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

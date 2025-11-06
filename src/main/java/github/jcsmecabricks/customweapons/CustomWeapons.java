@@ -1,5 +1,6 @@
 package github.jcsmecabricks.customweapons;
 
+import github.jcsmecabricks.customweapons.advancement.criterion.ModCriteria;
 import github.jcsmecabricks.customweapons.entity.ModEntities;
 import github.jcsmecabricks.customweapons.entity.custom.ElephantEntity;
 import github.jcsmecabricks.customweapons.event.DeadEyeEvents;
@@ -26,6 +27,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -47,6 +49,7 @@ public class CustomWeapons implements ModInitializer {
 		BlockInit.load();
 		DeadEyeEvents.register();
 		ModSounds.registerSounds();
+        ModCriteria.loadCriteria();
 
 		ModMessages.registerC2SPackets();
 		ModMessages.registerS2CPackets();

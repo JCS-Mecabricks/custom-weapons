@@ -41,7 +41,12 @@ public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileE
 
         List<RenderLayer> list = ItemRenderer.getGlintRenderLayers(this.model.getLayer(TEXTURE), false, false);
         for(int i = 0; i < list.size(); ++i) {
-            queue.getBatchingQueue(i).submitModel(this.model, state, matrices, (RenderLayer)list.get(i), state.light, OverlayTexture.DEFAULT_UV, -1, (Sprite)null, state.outlineColor, null);
+            queue.getBatchingQueue(i).submitModel(this.model,
+                    state, matrices,
+                    list.get(i), state.light,
+                    OverlayTexture.DEFAULT_UV, -1,
+                    (Sprite)null, state.outlineColor,
+                    null);
         }
 
         matrices.pop();

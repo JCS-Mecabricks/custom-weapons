@@ -1,0 +1,66 @@
+{
+  "parent": "custom-weapons:silver/root",
+  "criteria": {
+    "silver_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:silver_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "silver_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:silver_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "silver_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:silver_helmet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "silver_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:silver_leggings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.silver.obtain_armor.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "custom-weapons:silver_chestplate"
+    },
+    "title": {
+      "translate": "advancements.silver.obtain_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "silver_helmet",
+      "silver_chestplate",
+      "silver_leggings",
+      "silver_boots"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

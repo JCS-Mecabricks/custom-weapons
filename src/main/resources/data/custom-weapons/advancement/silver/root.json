@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "silver": {
+      "conditions": {
+        "items": [
+          {
+            "items": "custom-weapons:silver"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "custom-weapons:gui/advancements/backgrounds/block_of_silver",
+    "description": {
+      "translate": "advancements.silver.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "custom-weapons:silver"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.silver.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "silver"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

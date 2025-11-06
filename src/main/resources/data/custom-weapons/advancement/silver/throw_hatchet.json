@@ -1,0 +1,41 @@
+{
+  "parent": "custom-weapons:silver/obtain_armor",
+  "criteria": {
+    "shot_trident": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "type": "minecraft:trident"
+            },
+            "tags": [
+              {
+                "expected": true,
+                "id": "minecraft:is_projectile"
+              }
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.adventure.throw_hatchet.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "custom-weapons:hatchet"
+    },
+    "title": {
+      "translate": "advancements.adventure.v.title"
+    }
+  },
+  "requirements": [
+    [
+      "shot_trident"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

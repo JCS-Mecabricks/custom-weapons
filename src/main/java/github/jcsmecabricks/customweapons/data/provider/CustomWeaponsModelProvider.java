@@ -27,10 +27,10 @@ public class CustomWeaponsModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemInit.SICKLE, Models.GENERATED);
         itemModelGenerator.register(ItemInit.HATCHET);
         itemModelGenerator.register(ItemInit.ELEPHANT_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.registerArmor(ItemInit.SPARTAN_HELM, EquipmentModelInit.SILVER, ItemModelGenerator.HELMET_TRIM_ID_PREFIX, false);
-        itemModelGenerator.registerArmor(ItemInit.SPARTAN_CHESTPLATE, EquipmentModelInit.SILVER, ItemModelGenerator.CHESTPLATE_TRIM_ID_PREFIX, false);
-        itemModelGenerator.registerArmor(ItemInit.MEDIEVAL_LEGGINGS, EquipmentModelInit.SILVER, ItemModelGenerator.LEGGINGS_TRIM_ID_PREFIX, false);
-        itemModelGenerator.registerArmor(ItemInit.MEDIEVAL_BOOTS, EquipmentModelInit.SILVER, ItemModelGenerator.BOOTS_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ItemInit.SILVER_HELMET, EquipmentModelInit.SILVER, ItemModelGenerator.HELMET_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ItemInit.SILVER_CHESTPLATE, EquipmentModelInit.SILVER, ItemModelGenerator.CHESTPLATE_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ItemInit.SILVER_LEGGINGS, EquipmentModelInit.SILVER, ItemModelGenerator.LEGGINGS_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ItemInit.SILVER_BOOTS, EquipmentModelInit.SILVER, ItemModelGenerator.BOOTS_TRIM_ID_PREFIX, false);
         itemModelGenerator.register(ItemInit.IRON_ELEPHANT_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ItemInit.GOLD_ELEPHANT_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ItemInit.DIAMOND_ELEPHANT_ARMOR, Models.GENERATED);

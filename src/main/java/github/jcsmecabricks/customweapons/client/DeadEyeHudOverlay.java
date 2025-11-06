@@ -30,7 +30,6 @@ public class DeadEyeHudOverlay implements HudElement {
         int x = width / 2 + 91 - 90; // align with hunger bar
         int y = height - 49;         // base y position above hunger
 
-        // 🔼 Raise bar if riding an entity with > 20 health (like Minecraft does)
         if (client.player.hasVehicle() && client.player.getVehicle() instanceof net.minecraft.entity.LivingEntity mount) {
             float mountHealth = mount.getHealth();
             float mountMaxHealth = mount.getMaxHealth();
@@ -39,6 +38,10 @@ public class DeadEyeHudOverlay implements HudElement {
                 int rows = (int) Math.ceil(hearts / 10.0);
                 y -= (rows - 1) * 10; // each extra row pushes HUD up 10px
             }
+        }
+
+        if (client.player.getAir() < client.player.getMaxAir() || client.player.isSubmergedInWater()) {
+            y -= 10; // move up one row (same offset used by hearts/armor)
         }
 
         int current = ((IEntityDataSaver) client.player).getPersistentData().getInt("dead_eye").orElse(0);
