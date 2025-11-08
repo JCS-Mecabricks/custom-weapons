@@ -2,15 +2,12 @@ package github.jcsmecabricks.customweapons.networking.packet;
 
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.util.DeadEyeData;
-import github.jcsmecabricks.customweapons.util.DeadEyeState;
 import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
 public record DeadEyeC2SPacket() implements CustomPayload {
@@ -24,17 +21,22 @@ public record DeadEyeC2SPacket() implements CustomPayload {
 
     public static void receive(DeadEyeC2SPacket packet, ServerPlayNetworking.Context context) {
         ServerPlayerEntity player = context.player();
-        ServerWorld world = player.getEntityWorld();
+        IEntityDataSaver dataPlayer = (IEntityDataSaver) player;
 
-        DeadEyeState state = DeadEyeState.get(world);
+        int points = dataPlayer.getPersistentData().getInt("dead_eye", 0);
+        boolean isActive = DeadEyeData.isDeadEyeActive(dataPlayer);
 
-        boolean isActive = DeadEyeState.isActive(player);
-        DeadEyeState.setActive(player, !isActive);
+        // Case 1: Out of energy
+        if (points <= 0) {
+            DeadEyeData.setDeadEyeActive(dataPlayer, false);
+            DeadEyeData.setDeadEye(dataPlayer, 0);
+            return;
+        }
 
-        int points = DeadEyeState.getPoints(player);
-        points = Math.clamp(points, 0, 10);
-        DeadEyeState.setPoints(player, points);
+        // Case 2: Manual toggle (player pressed the key)
+        DeadEyeData.setDeadEyeActive(dataPlayer, !isActive);
 
-        DeadEyeData.syncDeadEye(points, player);
+        // Sync both the value and the active flag
+        DeadEyeData.syncDeadEye(points, !isActive, player);
     }
 }

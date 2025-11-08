@@ -39,13 +39,13 @@ public class KeyInputHandler {
     }
 
     public static void registerKeyInputs() {
+        register(); // register the keybinding first
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (deadEyeKey.wasPressed()) {
-                ClientPlayNetworking.send(new DeadEyeC2SPacket());
-                slowTickActive = !slowTickActive;
+                ModMessages.send(new DeadEyeC2SPacket());
             }
         });
-
-        register();
     }
+
 }

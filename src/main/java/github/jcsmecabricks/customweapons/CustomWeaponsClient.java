@@ -4,7 +4,10 @@ import github.jcsmecabricks.customweapons.client.DeadEyeHudOverlay;
 import github.jcsmecabricks.customweapons.entity.ModEntities;
 import github.jcsmecabricks.customweapons.entity.client.*;
 import github.jcsmecabricks.customweapons.event.KeyInputHandler;
+import github.jcsmecabricks.customweapons.networking.ModMessages;
+import github.jcsmecabricks.customweapons.networking.packet.DeadEyeSyncDataS2CPacket;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
@@ -27,6 +30,7 @@ public class CustomWeaponsClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ELEPHANT, ElephantRenderer::new);
 
         KeyInputHandler.registerKeyInputs();
+        ModMessages.registerS2CPackets();
 
         HudElementRegistry.attachElementBefore(
                 VanillaHudElements.CHAT,

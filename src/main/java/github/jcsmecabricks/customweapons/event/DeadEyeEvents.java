@@ -5,24 +5,32 @@ import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.nbt.NbtCompound;
-
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public class DeadEyeEvents {
     public static void register() {
+        // --- Preserve persistent data when player respawns ---
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
             NbtCompound oldData = ((IEntityDataSaver) oldPlayer).getPersistentData();
             ((IEntityDataSaver) newPlayer).getPersistentData().copyFrom(oldData);
         });
 
+        // --- Sync Dead Eye after respawn ---
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-            int deadEye = ((IEntityDataSaver) newPlayer).getPersistentData().getInt("deadEye").orElse(0);
-            DeadEyeData.syncDeadEye(deadEye, newPlayer);
+            syncToClient(newPlayer);
         });
-        
+
+        // --- Sync Dead Eye when player joins ---
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            int deadEye = ((IEntityDataSaver) handler.player).getPersistentData().getInt("deadEye").orElse(0);
-            DeadEyeData.syncDeadEye(deadEye, handler.player);
+            syncToClient(handler.player);
         });
+    }
+
+    private static void syncToClient(ServerPlayerEntity player) {
+        IEntityDataSaver dataPlayer = (IEntityDataSaver) player;
+        int deadEye = dataPlayer.getPersistentData().getInt("dead_eye", 0);
+        boolean isActive = DeadEyeData.isDeadEyeActive(dataPlayer);
+
+        DeadEyeData.syncDeadEye(deadEye, isActive, player);
     }
 }

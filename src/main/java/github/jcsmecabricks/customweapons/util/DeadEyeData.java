@@ -12,27 +12,32 @@ public class DeadEyeData {
         nbt.putInt("dead_eye", clamped);
 
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            syncDeadEye(clamped, serverPlayer);
+            syncDeadEye(clamped, isDeadEyeActive(player), serverPlayer);
         }
     }
 
     public static void setDeadEyeActive(IEntityDataSaver player, boolean active) {
         player.getPersistentData().putBoolean("dead_eye_active", active);
+
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            int current = player.getPersistentData().getInt("dead_eye", 0);
+            syncDeadEye(current, active, serverPlayer);
+        }
     }
 
     public static boolean isDeadEyeActive(IEntityDataSaver player) {
-        return player.getPersistentData().getBoolean("dead_eye_active").orElse(false);
+        return player.getPersistentData().getBoolean("dead_eye_active", false);
     }
 
     public static int addDeadEye(IEntityDataSaver player, int amount) {
         NbtCompound nbt = player.getPersistentData();
-        int deadEye = nbt.getInt("dead_eye").orElse(0);
+        int deadEye = nbt.getInt("dead_eye", 0);
 
         deadEye = Math.min(deadEye + amount, 10);
         nbt.putInt("dead_eye", deadEye);
 
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            syncDeadEye(deadEye, serverPlayer);
+            syncDeadEye(deadEye, isDeadEyeActive(player), serverPlayer);
         }
 
         return deadEye;
@@ -40,19 +45,19 @@ public class DeadEyeData {
 
     public static int removeDeadEye(IEntityDataSaver player, int amount) {
         NbtCompound nbt = player.getPersistentData();
-        int deadEye = nbt.getInt("dead_eye").orElse(0);
+        int deadEye = nbt.getInt("dead_eye", 0);
 
         deadEye = Math.max(deadEye - amount, 0);
         nbt.putInt("dead_eye", deadEye);
 
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            syncDeadEye(deadEye, serverPlayer);
+            syncDeadEye(deadEye, isDeadEyeActive(player), serverPlayer);
         }
 
         return deadEye;
     }
 
-    public static void syncDeadEye(int deadEye, ServerPlayerEntity player) {
-        ServerPlayNetworking.send(player, new DeadEyeSyncDataS2CPacket(deadEye));
+    public static void syncDeadEye(int deadEye, boolean active, ServerPlayerEntity player) {
+        ServerPlayNetworking.send(player, new DeadEyeSyncDataS2CPacket(deadEye, active));
     }
 }
