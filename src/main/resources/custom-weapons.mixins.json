@@ -11,8 +11,7 @@
 		"client.AbstractClientPlayerEntityMixin",
 		"client.HorseScreenHandlerMixin",
 		"client.ScreenHandlerInvoker",
-		"client.HorseScreenAccessor",
-		"client.HorseScreenMixin"
+		"client.MountScreenMixin"
 		],
 	"injectors": {
 		"defaultRequire": 1

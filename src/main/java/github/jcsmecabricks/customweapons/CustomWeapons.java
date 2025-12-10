@@ -7,7 +7,6 @@ import github.jcsmecabricks.customweapons.event.DeadEyeEvents;
 import github.jcsmecabricks.customweapons.event.PlayerTickHandler;
 import github.jcsmecabricks.customweapons.init.*;
 import github.jcsmecabricks.customweapons.networking.ModMessages;
-import github.jcsmecabricks.customweapons.networking.packet.DeadEyeSyncDataS2CPacket;
 import github.jcsmecabricks.customweapons.sound.ModSounds;
 import github.jcsmecabricks.customweapons.worldgen.ModEntitySpawns;
 import github.jcsmecabricks.customweapons.worldgen.ModWorldGeneration;
@@ -16,7 +15,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.block.Blocks;
@@ -108,12 +106,13 @@ public class CustomWeapons implements ModInitializer {
 		return Identifier.of(MOD_ID, path);
 	}
 
-	private static void registerCustomTrades() {
-		TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 1, factories -> {
-			factories.add((entity, random) -> new TradeOffer(
-					new TradedItem(Items.EMERALD, 1),
-					new ItemStack(ItemInit.SILVER, 1), 20, 3, 0.04f
-			));
-		});
-	}
+    private static void registerCustomTrades() {
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 1, factories -> {
+            factories.add((entity, random, context) -> new TradeOffer(
+                    new TradedItem(Items.EMERALD, 1),
+                    new ItemStack(ItemInit.SILVER, 1),
+                    20, 3, 0.04f
+            ));
+        });
+    }
 }

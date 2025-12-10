@@ -3,21 +3,16 @@ package github.jcsmecabricks.customweapons.entity.client;
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.custom.ElephantArmorItem;
 import github.jcsmecabricks.customweapons.init.ItemInit;
-import net.minecraft.client.model.Model;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.command.ModelCommandRenderer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
-import net.minecraft.client.render.entity.equipment.EquipmentModel.LayerType;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
@@ -80,7 +75,7 @@ public class ElephantArmorFeatureRenderer extends FeatureRenderer<ElephantRender
                 this.model,
                 state,
                 matrices,
-                RenderLayer.getEntityCutoutNoCull(armorTexture),
+                RenderLayers.armorCutoutNoCull(armorTexture),
                 light,
                 OverlayTexture.DEFAULT_UV,
                 state.outlineColor,
@@ -94,7 +89,7 @@ public class ElephantArmorFeatureRenderer extends FeatureRenderer<ElephantRender
                     this.model,
                     state,
                     matrices,
-                    RenderLayer.getEntityCutoutNoCull(dyeTexture),
+                    RenderLayers.armorCutoutNoCull(dyeTexture),
                     light,
                     OverlayTexture.DEFAULT_UV,
                     state.outlineColor,

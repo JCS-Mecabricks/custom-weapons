@@ -78,10 +78,11 @@ public class DeadEyeState extends PersistentState {
     public static final PersistentStateType<DeadEyeState> TYPE =
             new PersistentStateType<>(
                     MOD_ID + "_dead_eye",
-                    ctx -> new DeadEyeState(),
-                    ctx -> Codec.unit(new DeadEyeState()),
+                    DeadEyeState::new,
+                    null,
                     DataFixTypes.PLAYER
             );
+
 
     public static DeadEyeState get(ServerWorld world) {
         return world.getPersistentStateManager().getOrCreate(TYPE);

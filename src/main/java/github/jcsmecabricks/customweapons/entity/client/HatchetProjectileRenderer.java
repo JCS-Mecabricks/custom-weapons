@@ -61,8 +61,8 @@ public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileE
         hatchetProjectileRenderState.pitch = hatchetProjectile.getLerpedPitch(f);
         hatchetProjectileRenderState.isGrounded = hatchetProjectile.isGrounded();
         hatchetProjectileRenderState.getRenderingRotation = hatchetProjectile.getRenderingRotation();
-        hatchetProjectileRenderState.groundedPitch = hatchetProjectile.groundedOffset.getX();
-        hatchetProjectileRenderState.groundedYaw = hatchetProjectile.groundedOffset.getY();
+        hatchetProjectileRenderState.groundedPitch = hatchetProjectile.groundedOffset.x();
+        hatchetProjectileRenderState.groundedYaw = hatchetProjectile.groundedOffset.y();
     }
 
     @Override
