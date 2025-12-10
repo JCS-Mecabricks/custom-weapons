@@ -76,7 +76,7 @@ public class CustomWeapons implements ModInitializer {
 			entries.addAfter(Items.MACE, ItemInit.SILVER_HAMMER);
 			entries.addAfter(ItemInit.SILVER_HAMMER, ItemInit.SICKLE);
 			entries.addAfter(ItemInit.SICKLE, ItemInit.SICKLES);
-			entries.addAfter(ItemInit.SICKLES, ItemInit.SPEAR);
+			entries.addAfter(ItemInit.SICKLES, ItemInit.SILVER_SPEAR);
 		});
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
             entries.addAfter(Items.IRON_BOOTS, ItemInit.SILVER_HELMET);

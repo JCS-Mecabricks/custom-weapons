@@ -41,7 +41,7 @@ public class CustomWeaponsModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemInit.SILVER_DETECTOR, Models.HANDHELD);
         itemModelGenerator.register(ItemInit.SILVER_PAXEL, Models.HANDHELD);
         itemModelGenerator.register(ItemInit.SILVER, Models.GENERATED);
-        itemModelGenerator.register(ItemInit.SPEAR, Models.HANDHELD);
+        itemModelGenerator.registerSpear(ItemInit.SILVER_SPEAR);
         itemModelGenerator.register(ItemInit.SILVER_HAMMER, Models.HANDHELD);
         itemModelGenerator.register(ItemInit.SCYTHE, Models.HANDHELD);
 

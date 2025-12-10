@@ -161,7 +161,7 @@ public class CustomWeaponsRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.BOW), conditionsFromItem(Items.BOW))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.SPEAR)
+                createShaped(RecipeCategory.COMBAT, ItemInit.SILVER_SPEAR)
                         .input('L', ItemInit.SILVER)
                         .input('S', Items.STICK)
                         .pattern("  L")

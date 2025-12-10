@@ -17,10 +17,12 @@ public class CustomWeaponsItemTagProvider extends FabricTagProvider.ItemTagProvi
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         valueLookupBuilder(ItemTags.SWORDS)
-                .add(ItemInit.SPEAR)
                 .add(ItemInit.SCYTHE)
                 .add(ItemInit.SILVER_HAMMER)
                 .add(ItemInit.SICKLES);
+
+        valueLookupBuilder(ItemTags.SWORDS)
+                .add(ItemInit.SILVER_SPEAR);
 
         valueLookupBuilder(ModTags.Items.PAXEL_MINEABLE)
                 .forceAddTag(ItemTags.PICKAXES)

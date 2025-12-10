@@ -37,12 +37,12 @@ public class ItemInit {
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "sickles")))));
 
     public static final SwordItem SCYTHE = register("scythe",
-            new SwordItem(CustomWeaponsToolMaterials.CUSTOMWEAPONS2, 10, -2.5f, new Item.Settings()
+            new SwordItem(CustomWeaponsToolMaterials.CUSTOMWEAPONS2, 8, -2.5f, new Item.Settings()
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "scythe")))));
 
-    public static final SwordItem SPEAR = register("spear",
-            new SwordItem(CustomWeaponsToolMaterials.CUSTOMWEAPONS, 6, -2f, new Item.Settings()
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "spear")))));
+    public static final Item SILVER_SPEAR = register("silver_spear",
+            new Item(new Item.Settings().spear(CustomWeaponsToolMaterials.CUSTOMWEAPONS, 1F, 1F, 0.5F, 2.5F, 7.8F, 6.75F, 5.1F, 11F, 4.6F)
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, "silver_spear")))));
 
     public static final HammerItem SILVER_HAMMER = register("silver_hammer",
             new HammerItem(CustomWeaponsToolMaterials.CUSTOMWEAPONS3, 15, -2f, new Item.Settings()

@@ -1,8 +1,8 @@
 {
   "values": [
-    "custom-weapons:spear",
     "custom-weapons:scythe",
     "custom-weapons:silver_hammer",
-    "custom-weapons:sickles"
+    "custom-weapons:sickles",
+    "custom-weapons:silver_spear"
   ]
 }

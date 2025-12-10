@@ -1,4 +1,4 @@
-// 1.21.9	-999999999-01-01T00:00:00	Custom Weapons/Custom Weapons Recipes
+// 1.21.11	-999999999-01-01T00:00:00	Custom Weapons/Custom Weapons Recipes
 b897ebfa516d0e6bd06ec445e63f136d6f2f475e data/custom-weapons/advancement/recipes/building_blocks/block_of_silver.json
 1f72d9a2efc61e26c2b1ffc5873987f8a5d58832 data/custom-weapons/advancement/recipes/combat/compound_bow.json
 03023c587dc2dabe058d9bac0dc5bd902f11864d data/custom-weapons/advancement/recipes/combat/diamond_elephant_armor.json
@@ -11,7 +11,7 @@ db3b8695cfe01652a50dd33fd27a789dbda15cd3 data/custom-weapons/advancement/recipes
 d292d284663037a1489fe904922d7d3b93afdfac data/custom-weapons/advancement/recipes/combat/sickles.json
 5d29c797ba091cdf30f61842b5e1a59f3d3a3d8d data/custom-weapons/advancement/recipes/combat/silver_hammer.json
 056ff15b4b144f131053062aeb073980f3e9902c data/custom-weapons/advancement/recipes/combat/silver_paxel.json
-a55fe6ed1ac8502e2cb150eb6166db46bf588757 data/custom-weapons/advancement/recipes/combat/spear.json
+92192be8ab8a8eeb28b96622ffa2b8fbb6c57bd2 data/custom-weapons/advancement/recipes/combat/silver_spear.json
 0dec533951ce1094a122c646dacc55bc8521afc7 data/custom-weapons/advancement/recipes/tools/silver.json
 eb687e6e5d81063fdee151b33b861b72abf742fc data/custom-weapons/advancement/recipes/tools/silver_boots.json
 bb1f6e52dc7aec0faf15020a5e63bed87972ad93 data/custom-weapons/advancement/recipes/tools/silver_chestplate.json
@@ -46,4 +46,4 @@ c7fa3a1f9cef9ef5ef8f6dae773be02eb935b2eb data/custom-weapons/recipe/silver_from_
 a4f7c65f4812e2aaafee790b1a58c142636884d1 data/custom-weapons/recipe/silver_helmet.json
 dad4b529edc59948745a4763a5ab49b0c15ca2e8 data/custom-weapons/recipe/silver_leggings.json
 4fe420c96176a873aadfa337241265a2872781ee data/custom-weapons/recipe/silver_paxel.json
-9c1c153253b3263c61a85a00371b51cb30cc24b5 data/custom-weapons/recipe/spear.json
+e36f29a704b2914896c30f7c6aa87f5f85c89004 data/custom-weapons/recipe/silver_spear.json
