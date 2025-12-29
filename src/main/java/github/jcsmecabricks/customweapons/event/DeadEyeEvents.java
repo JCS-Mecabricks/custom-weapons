@@ -2,6 +2,7 @@ package github.jcsmecabricks.customweapons.event;
 
 import github.jcsmecabricks.customweapons.util.DeadEyeData;
 import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.nbt.NbtCompound;
@@ -19,6 +20,13 @@ public class DeadEyeEvents {
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
             syncToClient(newPlayer);
         });
+
+        ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
+                (player, origin, destination) -> {
+                    syncToClient(player);
+                }
+        );
+
 
         // --- Sync Dead Eye when player joins ---
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
