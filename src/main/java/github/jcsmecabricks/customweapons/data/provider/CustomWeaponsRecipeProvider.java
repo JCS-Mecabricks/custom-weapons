@@ -2,214 +2,216 @@ package github.jcsmecabricks.customweapons.data.provider;
 
 import github.jcsmecabricks.customweapons.init.BlockInit;
 import github.jcsmecabricks.customweapons.init.ItemInit;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.level.ItemLike;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class CustomWeaponsRecipeProvider extends FabricRecipeProvider {
-    public CustomWeaponsRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public CustomWeaponsRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup wrapperLookup, RecipeExporter recipeExporter) {
-        return new RecipeGenerator(wrapperLookup, recipeExporter) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
+        return new RecipeProvider(wrapperLookup, recipeExporter) {
             @Override
-            public void generate() {
-                createShaped(RecipeCategory.COMBAT, ItemInit.SICKLE)
-                        .input('I', Items.IRON_INGOT)
-                        .input('S', Items.STICK)
+            public void buildRecipes() {
+                shaped(RecipeCategory.COMBAT, ItemInit.SICKLE)
+                        .define('I', Items.IRON_INGOT)
+                        .define('S', Items.STICK)
                         .pattern(" II")
                         .pattern("  I")
                         .pattern(" S ")
-                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.SCYTHE)
-                        .input('E', ItemInit.SILVER)
-                        .input('S', Items.STICK)
+                shaped(RecipeCategory.COMBAT, ItemInit.SCYTHE)
+                        .define('E', ItemInit.SILVER)
+                        .define('S', Items.STICK)
                         .pattern("EEE")
                         .pattern("S  ")
                         .pattern("S  ")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.SILVER_HAMMER)
-                        .input('E', BlockInit.BLOCK_OF_SILVER)
-                        .input('S', Items.STICK)
+                shaped(RecipeCategory.COMBAT, ItemInit.SILVER_HAMMER)
+                        .define('E', BlockInit.BLOCK_OF_SILVER)
+                        .define('S', Items.STICK)
                         .pattern("EEE")
                         .pattern(" S ")
                         .pattern(" S ")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.SILVER_PAXEL)
-                        .input('E', Items.IRON_AXE)
-                        .input('J', Items.IRON_PICKAXE)
-                        .input('A', Items.IRON_SHOVEL)
-                        .input('K', BlockInit.BLOCK_OF_SILVER)
+                shaped(RecipeCategory.COMBAT, ItemInit.SILVER_PAXEL)
+                        .define('E', Items.IRON_AXE)
+                        .define('J', Items.IRON_PICKAXE)
+                        .define('A', Items.IRON_SHOVEL)
+                        .define('K', BlockInit.BLOCK_OF_SILVER)
                         .pattern(" E ")
                         .pattern("AKJ")
-                        .criterion(hasItem(BlockInit.BLOCK_OF_SILVER), conditionsFromItem(BlockInit.BLOCK_OF_SILVER))
-                        .criterion(hasItem(Items.IRON_SHOVEL), conditionsFromItem(Items.IRON_SHOVEL))
-                        .criterion(hasItem(Items.IRON_AXE), conditionsFromItem(Items.IRON_AXE))
-                        .criterion(hasItem(Items.IRON_PICKAXE), conditionsFromItem(Items.IRON_PICKAXE))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(BlockInit.BLOCK_OF_SILVER), has(BlockInit.BLOCK_OF_SILVER))
+                        .unlockedBy(getHasName(Items.IRON_SHOVEL), has(Items.IRON_SHOVEL))
+                        .unlockedBy(getHasName(Items.IRON_AXE), has(Items.IRON_AXE))
+                        .unlockedBy(getHasName(Items.IRON_PICKAXE), has(Items.IRON_PICKAXE))
+                        .save(output);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_CHESTPLATE)
-                        .input('S', ItemInit.SILVER)
+                shaped(RecipeCategory.TOOLS, ItemInit.SILVER_CHESTPLATE)
+                        .define('S', ItemInit.SILVER)
                         .pattern("S S")
                         .pattern("SSS")
                         .pattern("SSS")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .save(output);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_HELMET)
-                        .input('S', ItemInit.SILVER)
+                shaped(RecipeCategory.TOOLS, ItemInit.SILVER_HELMET)
+                        .define('S', ItemInit.SILVER)
                         .pattern("SSS")
                         .pattern("S S")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .save(output);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_LEGGINGS)
-                        .input('S', ItemInit.SILVER)
+                shaped(RecipeCategory.TOOLS, ItemInit.SILVER_LEGGINGS)
+                        .define('S', ItemInit.SILVER)
                         .pattern("SSS")
                         .pattern("S S")
                         .pattern("S S")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .save(output);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_BOOTS)
-                        .input('S', ItemInit.SILVER)
+                shaped(RecipeCategory.TOOLS, ItemInit.SILVER_BOOTS)
+                        .define('S', ItemInit.SILVER)
                         .pattern("S S")
                         .pattern("S S")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.HATCHET, 3)
-                        .input('S', ItemInit.SILVER)
-                        .input('T', Items.STICK)
+                shaped(RecipeCategory.COMBAT, ItemInit.HATCHET, 3)
+                        .define('S', ItemInit.SILVER)
+                        .define('T', Items.STICK)
                         .pattern("SSS")
                         .pattern("ST ")
                         .pattern(" T ")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.DIAMOND_ELEPHANT_ARMOR)
-                        .input('T', Items.DIAMOND)
+                shaped(RecipeCategory.COMBAT, ItemInit.DIAMOND_ELEPHANT_ARMOR)
+                        .define('T', Items.DIAMOND)
                         .pattern("TTT")
                         .pattern("TTT")
                         .pattern("T T")
-                        .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.DIAMOND), has(Items.DIAMOND))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.GOLD_ELEPHANT_ARMOR)
-                        .input('T', Items.GOLD_INGOT)
+                shaped(RecipeCategory.COMBAT, ItemInit.GOLD_ELEPHANT_ARMOR)
+                        .define('T', Items.GOLD_INGOT)
                         .pattern("TTT")
                         .pattern("TTT")
                         .pattern("T T")
-                        .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.IRON_ELEPHANT_ARMOR)
-                        .input('T', Items.IRON_INGOT)
+                shaped(RecipeCategory.COMBAT, ItemInit.IRON_ELEPHANT_ARMOR)
+                        .define('T', Items.IRON_INGOT)
                         .pattern("TTT")
                         .pattern("TTT")
                         .pattern("T T")
-                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.NETHERITE_ELEPHANT_ARMOR)
-                        .input('T', Items.NETHERITE_INGOT)
+                shaped(RecipeCategory.COMBAT, ItemInit.NETHERITE_ELEPHANT_ARMOR)
+                        .define('T', Items.NETHERITE_INGOT)
                         .pattern("TTT")
                         .pattern("TTT")
                         .pattern("T T")
-                        .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.NETHERITE_INGOT), has(Items.NETHERITE_INGOT))
+                        .save(output);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_ELEPHANT_ARMOR)
-                        .input('T', ItemInit.SILVER)
+                shaped(RecipeCategory.TOOLS, ItemInit.SILVER_ELEPHANT_ARMOR)
+                        .define('T', ItemInit.SILVER)
                         .pattern("TTT")
                         .pattern("TTT")
                         .pattern("T T")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.COMPOUND_BOW)
-                        .input('B', Items.BOW)
-                        .input('E', ItemInit.SILVER)
-                        .input('S', Items.STRING)
+                shaped(RecipeCategory.COMBAT, ItemInit.COMPOUND_BOW)
+                        .define('B', Items.BOW)
+                        .define('E', ItemInit.SILVER)
+                        .define('S', Items.STRING)
                         .pattern(" S ")
                         .pattern("EBE")
                         .pattern(" S ")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                        .criterion(hasItem(Items.BOW), conditionsFromItem(Items.BOW))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .unlockedBy(getHasName(Items.BOW), has(Items.BOW))
+                        .save(output);
 
-                createShaped(RecipeCategory.COMBAT, ItemInit.SILVER_SPEAR)
-                        .input('L', ItemInit.SILVER)
-                        .input('S', Items.STICK)
+                shaped(RecipeCategory.COMBAT, ItemInit.SILVER_SPEAR)
+                        .define('L', ItemInit.SILVER)
+                        .define('S', Items.STICK)
                         .pattern("  L")
                         .pattern(" S ")
                         .pattern("S  ")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(output);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, BlockInit.BLOCK_OF_SILVER)
-                        .input('S', ItemInit.SILVER)
+                shaped(RecipeCategory.BUILDING_BLOCKS, BlockInit.BLOCK_OF_SILVER)
+                        .define('S', ItemInit.SILVER)
                         .pattern("SSS")
                         .pattern("SSS")
                         .pattern("SSS")
-                        .criterion(hasItem(ItemInit.SILVER), conditionsFromItem(ItemInit.SILVER))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemInit.SILVER), has(ItemInit.SILVER))
+                        .save(output);
 
-                createShaped(RecipeCategory.TOOLS, ItemInit.SILVER_DETECTOR)
-                        .input('S', Items.IRON_INGOT)
-                        .input('E', Items.STICK)
+                shaped(RecipeCategory.TOOLS, ItemInit.SILVER_DETECTOR)
+                        .define('S', Items.IRON_INGOT)
+                        .define('E', Items.STICK)
                         .pattern(" E ")
                         .pattern(" E ")
                         .pattern("SSS")
-                        .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                        .save(output);
 
-                createShapeless(RecipeCategory.TOOLS, ItemInit.SILVER, 9)
-                        .input(BlockInit.BLOCK_OF_SILVER)
-                        .criterion(hasItem(BlockInit.BLOCK_OF_SILVER), conditionsFromItem(BlockInit.BLOCK_OF_SILVER))
-                        .offerTo(exporter);
+                shapeless(RecipeCategory.TOOLS, ItemInit.SILVER, 9)
+                        .requires(BlockInit.BLOCK_OF_SILVER)
+                        .unlockedBy(getHasName(BlockInit.BLOCK_OF_SILVER), has(BlockInit.BLOCK_OF_SILVER))
+                        .save(output);
 
-                createShapeless(RecipeCategory.COMBAT, ItemInit.SICKLES)
-                        .input(ItemInit.SICKLE, 2)
-                        .criterion(hasItem(ItemInit.SICKLE), conditionsFromItem(ItemInit.SICKLE))
-                        .offerTo(exporter);
+                shapeless(RecipeCategory.COMBAT, ItemInit.SICKLES)
+                        .requires(ItemInit.SICKLE, 2)
+                        .unlockedBy(getHasName(ItemInit.SICKLE), has(ItemInit.SICKLE))
+                        .save(output);
 
-                List<ItemConvertible> customweaponsOres = List.of(BlockInit.SILVER_ORE, BlockInit.DEEPSLATE_SILVER_ORE);
+                List<ItemLike> customweaponsOres = List.of(BlockInit.SILVER_ORE, BlockInit.DEEPSLATE_SILVER_ORE);
 
-                offerBlasting(customweaponsOres,
+                oreBlasting(customweaponsOres,
                         RecipeCategory.TOOLS,
+                        CookingBookCategory.MISC,
                         ItemInit.SILVER,
                         0.3f,
                         100,
                         "customweapons");
 
-                offerSmelting(customweaponsOres,
+                oreSmelting(customweaponsOres,
                         RecipeCategory.TOOLS,
+                        CookingBookCategory.MISC,
                         ItemInit.SILVER,
                         0.3f,
                         200,
@@ -217,7 +219,7 @@ public class CustomWeaponsRecipeProvider extends FabricRecipeProvider {
 
             }
             private static String hasTag(TagKey<Item> tag) {
-                return "has_" + tag.id().toString();
+                return "has_" + tag.location().toString();
             }
         };
     }

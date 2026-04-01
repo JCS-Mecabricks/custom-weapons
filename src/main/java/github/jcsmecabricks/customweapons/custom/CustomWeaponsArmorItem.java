@@ -1,14 +1,14 @@
 package github.jcsmecabricks.customweapons.custom;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 
 public class CustomWeaponsArmorItem extends Item implements CustomWeaponsArmorMaterial<ArmorMaterial> {
     private final ArmorMaterial material;
 
-    public CustomWeaponsArmorItem(ArmorMaterial material, EquipmentType type, Settings settings) {
-        super(settings.armor(material, type));
+    public CustomWeaponsArmorItem(ArmorMaterial material, ArmorType type, Properties settings) {
+        super(settings.humanoidArmor(material, type));
         this.material = material;
     }
 

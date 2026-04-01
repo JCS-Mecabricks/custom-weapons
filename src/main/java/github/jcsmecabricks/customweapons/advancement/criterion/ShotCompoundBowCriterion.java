@@ -2,37 +2,36 @@ package github.jcsmecabricks.customweapons.advancement.criterion;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancement.AdvancementCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.entity.LootContextPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.server.network.ServerPlayerEntity;
-
 import java.util.Optional;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 
-public class ShotCompoundBowCriterion extends AbstractCriterion<ShotCompoundBowCriterion.Conditions> {
-    public Codec<ShotCompoundBowCriterion.Conditions> getConditionsCodec() {
+public class ShotCompoundBowCriterion extends SimpleCriterionTrigger<ShotCompoundBowCriterion.Conditions> {
+    public Codec<ShotCompoundBowCriterion.Conditions> codec() {
         return ShotCompoundBowCriterion.Conditions.CODEC;
     }
 
-    public void trigger(ServerPlayerEntity player, ItemStack stack) {
+    public void trigger(ServerPlayer player, ItemStack stack) {
         this.trigger(player, (conditions) -> conditions.matches(stack));
     }
 
-    public static record Conditions(Optional<LootContextPredicate> player, Optional<ItemPredicate> item) implements AbstractCriterion.Conditions {
-        public static final Codec<ShotCompoundBowCriterion.Conditions> CODEC = RecordCodecBuilder.create((instance) -> instance.group(EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("player").forGetter(ShotCompoundBowCriterion.Conditions::player), ItemPredicate.CODEC.optionalFieldOf("item").forGetter(ShotCompoundBowCriterion.Conditions::item)).apply(instance, ShotCompoundBowCriterion.Conditions::new));
+    public static record Conditions(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> item) implements SimpleCriterionTrigger.SimpleInstance {
+        public static final Codec<ShotCompoundBowCriterion.Conditions> CODEC = RecordCodecBuilder.create((instance) -> instance.group(EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(ShotCompoundBowCriterion.Conditions::player), ItemPredicate.CODEC.optionalFieldOf("item").forGetter(ShotCompoundBowCriterion.Conditions::item)).apply(instance, ShotCompoundBowCriterion.Conditions::new));
 
-        public static AdvancementCriterion<ShotCompoundBowCriterion.Conditions> create(Optional<ItemPredicate> item) {
-            return ModCriteria.SHOT_COMPOUND_BOW.create(new ShotCompoundBowCriterion.Conditions(Optional.empty(), item));
+        public static Criterion<ShotCompoundBowCriterion.Conditions> create(Optional<ItemPredicate> item) {
+            return ModCriteria.SHOT_COMPOUND_BOW.createCriterion(new ShotCompoundBowCriterion.Conditions(Optional.empty(), item));
         }
 
-        public static AdvancementCriterion<ShotCompoundBowCriterion.Conditions> create(RegistryEntryLookup<Item> itemRegistry, ItemConvertible item) {
-            return ModCriteria.SHOT_COMPOUND_BOW.create(new ShotCompoundBowCriterion.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(itemRegistry, new ItemConvertible[]{item}).build())));
+        public static Criterion<ShotCompoundBowCriterion.Conditions> create(HolderGetter<Item> itemRegistry, ItemLike item) {
+            return ModCriteria.SHOT_COMPOUND_BOW.createCriterion(new ShotCompoundBowCriterion.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(itemRegistry, new ItemLike[]{item}).build())));
         }
 
         public boolean matches(ItemStack stack) {

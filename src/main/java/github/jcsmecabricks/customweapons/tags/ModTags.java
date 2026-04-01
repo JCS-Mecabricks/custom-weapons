@@ -1,11 +1,11 @@
 package github.jcsmecabricks.customweapons.tags;
 
 import github.jcsmecabricks.customweapons.CustomWeapons;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class ModTags {
     public static class Items {
@@ -16,14 +16,14 @@ public class ModTags {
 
 
         private static TagKey<Item> createTag(String name) {
-            return TagKey.of(RegistryKeys.ITEM, Identifier.of(CustomWeapons.MOD_ID, name));
+            return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, name));
         }
     }
     public static class Blocks {
         public static final TagKey<Block> PAXEL_MINEABLE = createTag("paxel_mineable");
 
         private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, Identifier.of(CustomWeapons.MOD_ID, name));
+            return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, name));
         }
     }
 }

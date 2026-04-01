@@ -1,20 +1,20 @@
 package github.jcsmecabricks.customweapons.util;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.datafixer.DataFixTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.PersistentState;
-import net.minecraft.world.PersistentStateType;
-
 import java.util.HashMap;
 import java.util.UUID;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 
 import static github.jcsmecabricks.customweapons.CustomWeapons.MOD_ID;
 
-public class DeadEyeState extends PersistentState {
+public class DeadEyeState extends SavedData {
 
     private final HashMap<UUID, Integer> deadEyeMap = new HashMap<>();
     private final HashMap<UUID, Boolean> activeMap = new HashMap<>();
@@ -22,36 +22,36 @@ public class DeadEyeState extends PersistentState {
     public static DeadEyeState INSTANCE;
 
     // --- Data accessors ---
-    public static int getPoints(PlayerEntity player) {
+    public static int getPoints(Player player) {
         ensureLoaded(player);
-        return INSTANCE.deadEyeMap.getOrDefault(player.getUuid(), 0);
+        return INSTANCE.deadEyeMap.getOrDefault(player.getUUID(), 0);
     }
 
-    public static void setPoints(PlayerEntity player, int value) {
+    public static void setPoints(Player player, int value) {
         ensureLoaded(player);
-        INSTANCE.deadEyeMap.put(player.getUuid(), value);
-        INSTANCE.markDirty();
+        INSTANCE.deadEyeMap.put(player.getUUID(), value);
+        INSTANCE.setDirty();
     }
 
-    public static boolean isActive(PlayerEntity player) {
+    public static boolean isActive(Player player) {
         ensureLoaded(player);
-        return INSTANCE.activeMap.getOrDefault(player.getUuid(), false);
+        return INSTANCE.activeMap.getOrDefault(player.getUUID(), false);
     }
 
-    public static void setActive(PlayerEntity player, boolean active) {
+    public static void setActive(Player player, boolean active) {
         ensureLoaded(player);
-        INSTANCE.activeMap.put(player.getUuid(), active);
-        INSTANCE.markDirty();
+        INSTANCE.activeMap.put(player.getUUID(), active);
+        INSTANCE.setDirty();
     }
 
-    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookup) {
-        NbtCompound pointsNbt = new NbtCompound();
+    public CompoundTag writeNbt(CompoundTag nbt, HolderLookup.Provider lookup) {
+        CompoundTag pointsNbt = new CompoundTag();
         for (var entry : deadEyeMap.entrySet()) {
             pointsNbt.putInt(entry.getKey().toString(), entry.getValue());
         }
         nbt.put("DeadEyePoints", pointsNbt);
 
-        NbtCompound activeNbt = new NbtCompound();
+        CompoundTag activeNbt = new CompoundTag();
         for (var entry : activeMap.entrySet()) {
             activeNbt.putBoolean(entry.getKey().toString(), entry.getValue());
         }
@@ -59,37 +59,37 @@ public class DeadEyeState extends PersistentState {
         return nbt;
     }
 
-    public static DeadEyeState fromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookup) {
+    public static DeadEyeState fromNbt(CompoundTag nbt, HolderLookup.Provider lookup) {
         DeadEyeState state = new DeadEyeState();
 
-        NbtCompound points = nbt.getCompound("DeadEyePoints").get();
-        for (String key : points.getKeys()) {
+        CompoundTag points = nbt.getCompound("DeadEyePoints").get();
+        for (String key : points.keySet()) {
             state.deadEyeMap.put(UUID.fromString(key), points.getInt(key).orElse(0));
         }
 
-        NbtCompound active = nbt.getCompound("DeadEyeActive").get();
-        for (String key : active.getKeys()) {
+        CompoundTag active = nbt.getCompound("DeadEyeActive").get();
+        for (String key : active.keySet()) {
             state.activeMap.put(UUID.fromString(key), active.getBoolean(key).orElse(false));
         }
 
         return state;
     }
 
-    public static final PersistentStateType<DeadEyeState> TYPE =
-            new PersistentStateType<>(
-                    MOD_ID + "_dead_eye",
+    public static final SavedDataType<DeadEyeState> TYPE =
+            new SavedDataType<>(
+                    Identifier.fromNamespaceAndPath(MOD_ID, "_dead_eye"),
                     DeadEyeState::new,
                     null,
                     DataFixTypes.PLAYER
             );
 
 
-    public static DeadEyeState get(ServerWorld world) {
-        return world.getPersistentStateManager().getOrCreate(TYPE);
+    public static DeadEyeState get(ServerLevel world) {
+        return world.getDataStorage().computeIfAbsent(TYPE);
     }
 
-    private static void ensureLoaded(PlayerEntity player) {
-        if (INSTANCE == null && player.getEntityWorld() instanceof ServerWorld serverWorld) {
+    private static void ensureLoaded(Player player) {
+        if (INSTANCE == null && player.level() instanceof ServerLevel serverWorld) {
             INSTANCE = get(serverWorld);
         }
     }

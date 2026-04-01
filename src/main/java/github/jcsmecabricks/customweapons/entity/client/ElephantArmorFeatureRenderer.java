@@ -1,62 +1,61 @@
 package github.jcsmecabricks.customweapons.entity.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.custom.ElephantArmorItem;
 import github.jcsmecabricks.customweapons.init.ItemInit;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.LoadedEntityModels;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-
 import java.util.Map;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
-public class ElephantArmorFeatureRenderer extends FeatureRenderer<ElephantRenderState, ElephantModel> {
+public class ElephantArmorFeatureRenderer extends RenderLayer<ElephantRenderState, ElephantModel> {
     private final ElephantModel model;
-    private final EquipmentRenderer equipmentRenderer;
+    private final EquipmentLayerRenderer equipmentRenderer;
 
     private static final Map<Item, Identifier> ARMOR_MAP = Map.of(
-            ItemInit.IRON_ELEPHANT_ARMOR, Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/iron_elephant.png"),
-            ItemInit.GOLD_ELEPHANT_ARMOR, Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/gold_elephant.png"),
-            ItemInit.DIAMOND_ELEPHANT_ARMOR, Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/diamond_elephant.png"),
-            ItemInit.NETHERITE_ELEPHANT_ARMOR, Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/netherite_elephant.png"),
-            ItemInit.SILVER_ELEPHANT_ARMOR, Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/silver_elephant.png")
+            ItemInit.IRON_ELEPHANT_ARMOR, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/iron_elephant.png"),
+            ItemInit.GOLD_ELEPHANT_ARMOR, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/gold_elephant.png"),
+            ItemInit.DIAMOND_ELEPHANT_ARMOR, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/diamond_elephant.png"),
+            ItemInit.NETHERITE_ELEPHANT_ARMOR, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/netherite_elephant.png"),
+            ItemInit.SILVER_ELEPHANT_ARMOR, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/silver_elephant.png")
     );
 
     private static final Identifier[] DYE_LOCATION = new Identifier[]{
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/white.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/orange.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/magenta.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/light_blue.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/yellow.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/lime.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/pink.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/gray.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/light_gray.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/cyan.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/purple.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/blue.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/brown.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/green.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/red.png"),
-            Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/black.png")
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/white.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/orange.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/magenta.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/light_blue.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/yellow.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/lime.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/pink.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/gray.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/light_gray.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/cyan.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/purple.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/blue.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/brown.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/green.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/red.png"),
+            Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/armor/blanket/black.png")
     };
 
-    public ElephantArmorFeatureRenderer(FeatureRendererContext<ElephantRenderState, ElephantModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
+    public ElephantArmorFeatureRenderer(RenderLayerParent<ElephantRenderState, ElephantModel> context, EntityModelSet loader, EquipmentLayerRenderer equipmentRenderer) {
         super(context);
-        this.model = new ElephantModel(loader.getModelPart(ElephantModel.ELEPHANT_ARMOR));
+        this.model = new ElephantModel(loader.bakeLayer(ElephantModel.ELEPHANT_ARMOR));
         this.equipmentRenderer = equipmentRenderer;
     }
 
     @Override
-    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, ElephantRenderState state, float limbAngle, float limbDistance) {
+    public void submit(PoseStack matrices, SubmitNodeCollector queue, int light, ElephantRenderState state, float limbAngle, float limbDistance) {
         if (!state.hasArmorOn) return;
 
         ItemStack stack = state.getBodyArmor;
@@ -67,7 +66,7 @@ public class ElephantArmorFeatureRenderer extends FeatureRenderer<ElephantRender
         Identifier armorTexture = ARMOR_MAP.get(armorItem);
         if (armorTexture == null) return;
 
-        this.getContextModel().copyStateTo(this.model);
+        this.getParentModel().copyStateTo(this.model);
         this.model.setAngles(state);
 
         // Submit base armor texture
@@ -75,9 +74,9 @@ public class ElephantArmorFeatureRenderer extends FeatureRenderer<ElephantRender
                 this.model,
                 state,
                 matrices,
-                RenderLayers.armorCutoutNoCull(armorTexture),
+                RenderTypes.armorCutoutNoCull(armorTexture),
                 light,
-                OverlayTexture.DEFAULT_UV,
+                OverlayTexture.NO_OVERLAY,
                 state.outlineColor,
                 null
         );
@@ -89,9 +88,9 @@ public class ElephantArmorFeatureRenderer extends FeatureRenderer<ElephantRender
                     this.model,
                     state,
                     matrices,
-                    RenderLayers.armorCutoutNoCull(dyeTexture),
+                    RenderTypes.armorCutoutNoCull(dyeTexture),
                     light,
-                    OverlayTexture.DEFAULT_UV,
+                    OverlayTexture.NO_OVERLAY,
                     state.outlineColor,
                     null
             );

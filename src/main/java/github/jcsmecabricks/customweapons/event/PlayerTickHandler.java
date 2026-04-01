@@ -4,24 +4,23 @@ import github.jcsmecabricks.customweapons.util.DeadEyeData;
 import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-
+import net.minecraft.server.level.ServerPlayer;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerTickHandler implements ServerTickEvents.StartTick {
 
-    private final Map<ServerPlayerEntity, Integer> tickCounters = new HashMap<>();
+    private final Map<ServerPlayer, Integer> tickCounters = new HashMap<>();
 
     @Override
     public void onStartTick(MinecraftServer server) {
         // Clean up disconnected players
-        tickCounters.keySet().removeIf(p -> !server.getPlayerManager().getPlayerList().contains(p));
+        tickCounters.keySet().removeIf(p -> !server.getPlayerList().getPlayers().contains(p));
 
-        for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             IEntityDataSaver dataPlayer = (IEntityDataSaver) player;
 
-            int deadEye = dataPlayer.getPersistentData().getInt("dead_eye", 0);
+            int deadEye = dataPlayer.getPersistentData().getIntOr("dead_eye", 0);
             boolean isActive = DeadEyeData.isDeadEyeActive(dataPlayer);
 
             // --- Stop immediately if empty ---

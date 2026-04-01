@@ -2,20 +2,19 @@ package github.jcsmecabricks.customweapons.data.provider;
 
 import github.jcsmecabricks.customweapons.init.ItemInit;
 import github.jcsmecabricks.customweapons.tags.ModTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.ItemTags;
 import java.util.concurrent.CompletableFuture;
 
-public class CustomWeaponsItemTagProvider extends FabricTagProvider.ItemTagProvider {
-    public CustomWeaponsItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+public class CustomWeaponsItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+    public CustomWeaponsItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
         valueLookupBuilder(ItemTags.SWORDS)
                 .add(ItemInit.SCYTHE)
                 .add(ItemInit.SILVER_HAMMER)

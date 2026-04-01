@@ -1,18 +1,17 @@
 package github.jcsmecabricks.customweapons.entity.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.entity.custom.ElephantEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.Identifier;
 
-public class ElephantRenderer extends MobEntityRenderer<ElephantEntity, ElephantRenderState, ElephantModel> {
-    private static final Identifier TEXTURE = Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/elephant.png");
-    public ElephantRenderer(EntityRendererFactory.Context context) {
-        super(context, new ElephantModel(context.getPart(ElephantModel.ELEPHANT)), 1.5F);
-        this.addFeature(new ElephantArmorFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
+public class ElephantRenderer extends MobRenderer<ElephantEntity, ElephantRenderState, ElephantModel> {
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/elephant.png");
+    public ElephantRenderer(EntityRendererProvider.Context context) {
+        super(context, new ElephantModel(context.bakeLayer(ElephantModel.ELEPHANT)), 1.5F);
+        this.addLayer(new ElephantArmorFeatureRenderer(this, context.getModelSet(), context.getEquipmentRenderer()));
     }
 
     @Override
@@ -21,28 +20,28 @@ public class ElephantRenderer extends MobEntityRenderer<ElephantEntity, Elephant
     }
 
     @Override
-    public void updateRenderState(ElephantEntity livingEntity, ElephantRenderState livingEntityRenderState, float f) {
-        super.updateRenderState(livingEntity, livingEntityRenderState, f);
+    public void extractRenderState(ElephantEntity livingEntity, ElephantRenderState livingEntityRenderState, float f) {
+        super.extractRenderState(livingEntity, livingEntityRenderState, f);
         livingEntityRenderState.idlingAnimationState.copyFrom(livingEntity.idleAnimationState);
-        livingEntityRenderState.isSaddled = livingEntity.hasSaddleEquipped();
+        livingEntityRenderState.isSaddled = livingEntity.isSaddled();
         livingEntityRenderState.hasArmorOn = livingEntity.hasArmorOn();
         livingEntityRenderState.swag = livingEntity.getSwag();
         livingEntityRenderState.hasChest = livingEntity.hasChest();
-        livingEntityRenderState.getBodyArmor = livingEntity.getBodyArmor().copy();
+        livingEntityRenderState.getBodyArmor = livingEntity.getBodyArmorItem().copy();
     }
 
     @Override
-    protected void scale(ElephantRenderState state, MatrixStack matrices) {
-        float scale = state.baby ? 0.5F : 1.0F;
-        matrices.scale(scale, scale, scale);
+    public Identifier getTextureLocation(ElephantRenderState state) {
+        if(state.isSaddled) {
+            return Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/elephant_saddled.png");
+        } else {
+            return Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/elephant/elephant.png");
+        }
     }
 
-
-    public Identifier getTexture(ElephantRenderState state) {
-        if(state.isSaddled) {
-            return Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/elephant_saddled.png");
-        } else {
-            return Identifier.of(CustomWeapons.MOD_ID, "textures/entity/elephant/elephant.png");
-        }
+    @Override
+    protected void scale(ElephantRenderState state, PoseStack matrices) {
+        float scale = state.isBaby ? 0.5F : 1.0F;
+        matrices.scale(scale, scale, scale);
     }
 }

@@ -4,26 +4,26 @@ import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.util.DeadEyeData;
 import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 
-public record DeadEyeC2SPacket() implements CustomPayload {
-    public static final Id<DeadEyeC2SPacket> ID = new Id<>(Identifier.of(CustomWeapons.MOD_ID, "dead_eye"));
-    public static final PacketCodec<PacketByteBuf, DeadEyeC2SPacket> CODEC = PacketCodec.unit(new DeadEyeC2SPacket());
+public record DeadEyeC2SPacket() implements CustomPacketPayload {
+    public static final Type<DeadEyeC2SPacket> ID = new Type<>(Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "dead_eye"));
+    public static final StreamCodec<FriendlyByteBuf, DeadEyeC2SPacket> CODEC = StreamCodec.unit(new DeadEyeC2SPacket());
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(DeadEyeC2SPacket packet, ServerPlayNetworking.Context context) {
-        ServerPlayerEntity player = context.player();
+        ServerPlayer player = context.player();
         IEntityDataSaver dataPlayer = (IEntityDataSaver) player;
 
-        int points = dataPlayer.getPersistentData().getInt("dead_eye", 0);
+        int points = dataPlayer.getPersistentData().getIntOr("dead_eye", 0);
         boolean isActive = DeadEyeData.isDeadEyeActive(dataPlayer);
 
         // Case 1: Out of energy

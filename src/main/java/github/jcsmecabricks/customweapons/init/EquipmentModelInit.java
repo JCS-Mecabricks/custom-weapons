@@ -1,14 +1,14 @@
 package github.jcsmecabricks.customweapons.init;
 
 import github.jcsmecabricks.customweapons.CustomWeapons;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.item.equipment.EquipmentAssetKeys;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 
-public class EquipmentModelInit implements EquipmentAssetKeys {
-    public static final RegistryKey<EquipmentAsset> SILVER = register("silver");
+public class EquipmentModelInit implements EquipmentAssets {
+    public static final ResourceKey<EquipmentAsset> SILVER = createId("silver");
 
-    public static RegistryKey<EquipmentAsset> register(String name) {
-        return RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, CustomWeapons.id(name));
+    public static ResourceKey<EquipmentAsset> createId(String name) {
+        return ResourceKey.create(EquipmentAssets.ROOT_ID, CustomWeapons.id(name));
     }
 }

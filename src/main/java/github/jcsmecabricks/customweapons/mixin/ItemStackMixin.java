@@ -2,11 +2,11 @@ package github.jcsmecabricks.customweapons.mixin;
 
 import github.jcsmecabricks.customweapons.util.DeadEyeData;
 import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,20 +15,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
     @Inject(
-            method = "finishUsing(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/item/ItemStack;",
+            method = "finishUsingItem(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/item/ItemStack;",
             at = @At("HEAD")
     )
-    private void onFinishUsing(World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
-        if (!world.isClient() && user instanceof ServerPlayerEntity player) {
+    private void onFinishUsing(Level world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
+        if (!world.isClientSide() && user instanceof ServerPlayer player) {
             ItemStack stack = (ItemStack) (Object) this;
 
             int deadEyePoints = 0;
 
-            if (stack.isOf(Items.ENCHANTED_GOLDEN_APPLE)) {
+            if (stack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
                 deadEyePoints = 5;
-            } else if (stack.isOf(Items.GOLDEN_APPLE)) {
+            } else if (stack.is(Items.GOLDEN_APPLE)) {
                 deadEyePoints = 2;
-            } else if (stack.isOf(Items.GOLDEN_CARROT)) {
+            } else if (stack.is(Items.GOLDEN_CARROT)) {
                 deadEyePoints = 3;
             }
 

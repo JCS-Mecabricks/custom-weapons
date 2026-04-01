@@ -2,35 +2,35 @@ package github.jcsmecabricks.customweapons.entity.custom;
 
 import github.jcsmecabricks.customweapons.entity.ModEntities;
 import github.jcsmecabricks.customweapons.init.ItemInit;
-import net.minecraft.client.util.math.Vector2f;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.client.model.geom.builders.UVPair;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 
-public class HatchetProjectileEntity extends PersistentProjectileEntity {
+public class HatchetProjectileEntity extends AbstractArrow {
     private float rotation;
     public int groundedTicks = 0;
-    public Vector2f groundedOffset;
+    public UVPair groundedOffset;
 
-    public HatchetProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public HatchetProjectileEntity(EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
-        groundedOffset = new Vector2f(0f, 0f);
+        groundedOffset = new UVPair(0f, 0f);
     }
 
-    public HatchetProjectileEntity(World world, PlayerEntity player) {
+    public HatchetProjectileEntity(Level world, Player player) {
         super(ModEntities.HATCHET, player, world, new ItemStack(ItemInit.HATCHET), null);
-        groundedOffset = new Vector2f(0f, 0f);
+        groundedOffset = new UVPair(0f, 0f);
     }
 
     @Override
-    protected ItemStack getDefaultItemStack() {
+    protected ItemStack getDefaultPickupItem() {
         return new ItemStack(ItemInit.HATCHET);
     }
 
@@ -60,39 +60,39 @@ public class HatchetProjectileEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        if (!this.getEntityWorld().isClient()) {
-            ServerWorld world = (ServerWorld) this.getEntityWorld();
+    protected void onHitEntity(EntityHitResult entityHitResult) {
+        if (!this.level().isClientSide()) {
+            ServerLevel world = (ServerLevel) this.level();
             Entity entity = entityHitResult.getEntity();
-            entity.damage(world, this.getDamageSources().thrown(this, this.getOwner()), 7);
-            this.getEntityWorld().sendEntityStatus(this, (byte) 9);
+            entity.hurtServer(world, this.damageSources().thrown(this, this.getOwner()), 7);
+            this.level().broadcastEntityEvent(this, (byte) 9);
             this.discard();
         }
     }
 
 
     @Override
-    protected void onBlockHit(BlockHitResult result) {
-        super.onBlockHit(result);
+    protected void onHitBlock(BlockHitResult result) {
+        super.onHitBlock(result);
 
-        if(result.getSide() == Direction.SOUTH) {
-            groundedOffset = new Vector2f(215f,180f);
+        if(result.getDirection() == Direction.SOUTH) {
+            groundedOffset = new UVPair(215f,180f);
         }
-        if(result.getSide() == Direction.NORTH) {
-            groundedOffset = new Vector2f(215f, 0f);
+        if(result.getDirection() == Direction.NORTH) {
+            groundedOffset = new UVPair(215f, 0f);
         }
-        if(result.getSide() == Direction.EAST) {
-            groundedOffset = new Vector2f(215f,-90f);
+        if(result.getDirection() == Direction.EAST) {
+            groundedOffset = new UVPair(215f,-90f);
         }
-        if(result.getSide() == Direction.WEST) {
-            groundedOffset = new Vector2f(215f,90f);
+        if(result.getDirection() == Direction.WEST) {
+            groundedOffset = new UVPair(215f,90f);
         }
 
-        if(result.getSide() == Direction.DOWN) {
-            groundedOffset = new Vector2f(115f,180f);
+        if(result.getDirection() == Direction.DOWN) {
+            groundedOffset = new UVPair(115f,180f);
         }
-        if(result.getSide() == Direction.UP) {
-            groundedOffset = new Vector2f(285f,180f);
+        if(result.getDirection() == Direction.UP) {
+            groundedOffset = new UVPair(285f,180f);
         }
     }
 }

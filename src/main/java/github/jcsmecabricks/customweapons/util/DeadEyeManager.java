@@ -1,15 +1,15 @@
 package github.jcsmecabricks.customweapons.util;
 
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 
 public class DeadEyeManager {
     private int value = 10; // like foodLevel
     private boolean active;
     private int tickTimer;
 
-    public void tick(ServerPlayerEntity player) {
-        ServerWorld world = player.getEntityWorld();
+    public void tick(ServerPlayer player) {
+        ServerLevel world = player.level();
 
         if (active) {
             // drain Dead Eye slowly
@@ -34,11 +34,11 @@ public class DeadEyeManager {
         }
     }
 
-    private void applySlowEffect(ServerWorld world, ServerPlayerEntity player) {
-        world.getEntitiesByClass(net.minecraft.entity.LivingEntity.class,
-                player.getBoundingBox().expand(10),
+    private void applySlowEffect(ServerLevel world, ServerPlayer player) {
+        world.getEntitiesOfClass(net.minecraft.world.entity.LivingEntity.class,
+                player.getBoundingBox().inflate(10),
                 e -> e != player).forEach(e -> {
-            e.setVelocity(e.getVelocity().multiply(0.5));
+            e.setDeltaMovement(e.getDeltaMovement().scale(0.5));
         });
     }
 

@@ -2,18 +2,18 @@ package github.jcsmecabricks.customweapons.event;
 
 import github.jcsmecabricks.customweapons.util.DeadEyeData;
 import github.jcsmecabricks.customweapons.util.IEntityDataSaver;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityLevelChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 
 public class DeadEyeEvents {
     public static void register() {
         // --- Preserve persistent data when player respawns ---
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
-            NbtCompound oldData = ((IEntityDataSaver) oldPlayer).getPersistentData();
-            ((IEntityDataSaver) newPlayer).getPersistentData().copyFrom(oldData);
+            CompoundTag oldData = ((IEntityDataSaver) oldPlayer).getPersistentData();
+            ((IEntityDataSaver) newPlayer).getPersistentData().merge(oldData);
         });
 
         // --- Sync Dead Eye after respawn ---
@@ -21,7 +21,7 @@ public class DeadEyeEvents {
             syncToClient(newPlayer);
         });
 
-        ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
+        ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register(
                 (player, origin, destination) -> {
                     syncToClient(player);
                 }
@@ -34,9 +34,9 @@ public class DeadEyeEvents {
         });
     }
 
-    private static void syncToClient(ServerPlayerEntity player) {
+    private static void syncToClient(ServerPlayer player) {
         IEntityDataSaver dataPlayer = (IEntityDataSaver) player;
-        int deadEye = dataPlayer.getPersistentData().getInt("dead_eye", 0);
+        int deadEye = dataPlayer.getPersistentData().getIntOr("dead_eye", 0);
         boolean isActive = DeadEyeData.isDeadEyeActive(dataPlayer);
 
         DeadEyeData.syncDeadEye(deadEye, isActive, player);

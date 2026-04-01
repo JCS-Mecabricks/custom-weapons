@@ -1,0 +1,10 @@
+{
+  "gives": {
+    "id": "custom-weapons:silver"
+  },
+  "max_uses": 20.0,
+  "reputation_discount": 0.2,
+  "wants": {
+    "id": "minecraft:emerald"
+  }
+}

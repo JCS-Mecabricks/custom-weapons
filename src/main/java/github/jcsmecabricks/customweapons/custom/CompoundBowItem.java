@@ -2,25 +2,24 @@ package github.jcsmecabricks.customweapons.custom;
 
 import github.jcsmecabricks.customweapons.advancement.criterion.ModCriteria;
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.consume.UseAction;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -29,34 +28,34 @@ import java.util.function.Predicate;
 public class CompoundBowItem extends BowItem {
     public static final int TICKS_PER_SECOND = 20;
 
-    public CompoundBowItem(Settings settings) {
+    public CompoundBowItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if (!(user instanceof PlayerEntity playerEntity)) {
+    public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
+        if (!(user instanceof Player playerEntity)) {
             return false;
         }
 
-        ItemStack projectile = playerEntity.getProjectileType(stack);
+        ItemStack projectile = playerEntity.getProjectile(stack);
         if (projectile.isEmpty()) {
             return false;
         }
 
-        int useTime = this.getMaxUseTime(stack, user) - remainingUseTicks;
-        float pull = getPullProgress(useTime);
+        int useTime = this.getUseDuration(stack, user) - remainingUseTicks;
+        float pull = getPowerForTime(useTime);
         if (pull < 0.1F) {
             return false;
         }
 
-        List<ItemStack> list = load(stack, projectile, playerEntity);
-        if (world instanceof ServerWorld serverWorld && !list.isEmpty()) {
-            int i = this.getMaxUseTime(stack, user) - remainingUseTicks;
-            float f = getPullProgress(i);
-            this.shootAll(serverWorld, playerEntity, playerEntity.getActiveHand(), stack, list, f * 6.0F, 1.0F, f == 1.0F, (LivingEntity)null);
+        List<ItemStack> list = draw(stack, projectile, playerEntity);
+        if (world instanceof ServerLevel serverWorld && !list.isEmpty()) {
+            int i = this.getUseDuration(stack, user) - remainingUseTicks;
+            float f = getPowerForTime(i);
+            this.shoot(serverWorld, playerEntity, playerEntity.getUsedItemHand(), stack, list, f * 6.0F, 1.0F, f == 1.0F, (LivingEntity)null);
 
-            if (playerEntity instanceof ServerPlayerEntity serverPlayer) {
+            if (playerEntity instanceof ServerPlayer serverPlayer) {
                 ModCriteria.SHOT_COMPOUND_BOW.trigger(serverPlayer, stack);
             }
         }
@@ -64,25 +63,25 @@ public class CompoundBowItem extends BowItem {
         world.playSound(
                 null,
                 playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(),
-                SoundEvents.ENTITY_ARROW_SHOOT,
-                SoundCategory.PLAYERS,
+                SoundEvents.ARROW_SHOOT,
+                SoundSource.PLAYERS,
                 1.0F,
                 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + pull * 0.5F
         );
 
-        playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+        playerEntity.awardStat(Stats.ITEM_USED.get(this));
         return true;
     }
 
 
     @Override
-    protected void shoot(LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target) {
-        projectile.setVelocity(shooter, shooter.getPitch(), shooter.getYaw() + yaw, 0.0F, speed, divergence);
-        if (projectile instanceof PersistentProjectileEntity persistentProjectile) {
+    protected void shootProjectile(LivingEntity shooter, Projectile projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target) {
+        projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot() + yaw, 0.0F, speed, divergence);
+        if (projectile instanceof AbstractArrow persistentProjectile) {
         }
     }
 
-    public static float getPullProgress(int useTicks) {
+    public static float getPowerForTime(int useTicks) {
         float f = (float) useTicks / 20.0F;
         f = (f * f + f * 2.0F) / 3.0F;
         if (f > 1.0F) {
@@ -93,47 +92,47 @@ public class CompoundBowItem extends BowItem {
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+    public int getUseDuration(ItemStack stack, LivingEntity user) {
         return 72000;
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.BOW;
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
-        boolean bl = !user.getProjectileType(itemStack).isEmpty();
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        ItemStack itemStack = user.getItemInHand(hand);
+        boolean bl = !user.getProjectile(itemStack).isEmpty();
         if (!user.isCreative() && !bl) {
-            return ActionResult.FAIL;
+            return InteractionResult.FAIL;
         } else {
-            user.setCurrentHand(hand);
-            return ActionResult.CONSUME;
+            user.startUsingItem(hand);
+            return InteractionResult.CONSUME;
         }
     }
     @Override
-    public boolean canBeEnchantedWith(ItemStack stack, RegistryEntry<Enchantment> enchantment, EnchantingContext context) {
-        return enchantment.matchesKey(Enchantments.MENDING) || super.canBeEnchantedWith(stack, enchantment, context);
+    public boolean canBeEnchantedWith(ItemStack stack, Holder<Enchantment> enchantment, EnchantingContext context) {
+        return enchantment.is(Enchantments.MENDING) || super.canBeEnchantedWith(stack, enchantment, context);
     }
 
     @Override
-    public Predicate<ItemStack> getProjectiles() {
-        return BOW_PROJECTILES;
+    public Predicate<ItemStack> getAllSupportedProjectiles() {
+        return ARROW_ONLY;
     }
 
     @Override
-    public int getRange() {
+    public int getDefaultProjectileRange() {
         return 20;
     }
-    public float call(ItemStack stack, World world, LivingEntity entity, int seed) {
+    public float call(ItemStack stack, Level world, LivingEntity entity, int seed) {
         if (entity == null) {
             return 0.0F;
         }
 
-        if (entity.getActiveItem() == stack) {
-            int useTime = stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft();
+        if (entity.getUseItem() == stack) {
+            int useTime = stack.getUseDuration(entity) - entity.getUseItemRemainingTicks();
             return (float) useTime / 20.0F;
         }
 

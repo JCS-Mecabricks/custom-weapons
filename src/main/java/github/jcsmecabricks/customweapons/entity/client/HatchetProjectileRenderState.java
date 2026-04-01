@@ -1,12 +1,12 @@
 package github.jcsmecabricks.customweapons.entity.client;
 
-import net.minecraft.client.render.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
 public class HatchetProjectileRenderState extends EntityRenderState {
     public float yaw;
     public float pitch;
     private float rotation;
-    public int light;
+    public int lightCoords;
     public boolean isGrounded;
     public float getRenderingRotation;
     public float groundedPitch;
@@ -21,7 +21,7 @@ public class HatchetProjectileRenderState extends EntityRenderState {
         groundedPitch = 0f;
         groundedYaw = 0f;
         groundedTicks = 0;
-        light = 0xF000F0;
+        lightCoords = 0xF000F0;
     }
 
     public float getRenderingRotation() {

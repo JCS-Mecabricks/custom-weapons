@@ -1,60 +1,59 @@
 package github.jcsmecabricks.customweapons.custom;
 
 import github.jcsmecabricks.customweapons.init.BlockInit;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
 import java.util.Objects;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class SilverDetectorItem extends Item {
-    public SilverDetectorItem(Settings settings) {
+    public SilverDetectorItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        World world = context.getWorld();
-        if(!context.getWorld().isClient()) {
-            BlockPos positionClicked = context.getBlockPos();
-            PlayerEntity player = context.getPlayer();
+    public InteractionResult useOn(UseOnContext context) {
+        Level world = context.getLevel();
+        if(!context.getLevel().isClientSide()) {
+            BlockPos positionClicked = context.getClickedPos();
+            Player player = context.getPlayer();
             boolean foundBlock = false;
 
             for(int i = 0; i <= positionClicked.getY() + 64; i++) {
-                BlockState state = context.getWorld().getBlockState(positionClicked.down(i));
+                BlockState state = context.getLevel().getBlockState(positionClicked.below(i));
 
                 if(isSilverOreBlock(state)) {
-                    outputSilverOreCoordinates(positionClicked.down(i), player, state.getBlock());
+                    outputSilverOreCoordinates(positionClicked.below(i), player, state.getBlock());
                     foundBlock = true;
 
                     break;
                 }
             }
             if(!foundBlock) {
-                player.sendMessage(Text.literal("No Silver Found!"), false);
+                player.sendSystemMessage(Component.literal("No Silver Found!"));
             }
-            context.getStack().damage(1, ((ServerWorld) world), ((ServerPlayerEntity) context.getPlayer()),
-                    item -> Objects.requireNonNull(context.getPlayer()).sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
+            context.getItemInHand().hurtAndBreak(1, ((ServerLevel) world), ((ServerPlayer) context.getPlayer()),
+                    item -> Objects.requireNonNull(context.getPlayer()).onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    private void outputSilverOreCoordinates(BlockPos blockPos, PlayerEntity player, Block block) {
-        player.sendMessage(Text.literal("Found " + block.asItem().getName().getString() + " at " +
-                "(" + blockPos.getX() + ", " + blockPos.getY() + ", " + blockPos.getZ() + ")"), false);
+    private void outputSilverOreCoordinates(BlockPos blockPos, Player player, Block block) {
+        player.sendSystemMessage(Component.literal("Found " + new ItemStack(block).getHoverName().getString() + " at " +
+                "(" + blockPos.getX() + ", " + blockPos.getY() + ", " + blockPos.getZ() + ")"));
     }
-
 
     private boolean isSilverOreBlock(BlockState state) {
-        return state.isOf(BlockInit.SILVER_ORE) || state.isOf(BlockInit.DEEPSLATE_SILVER_ORE);
+        return state.is(BlockInit.SILVER_ORE) || state.is(BlockInit.DEEPSLATE_SILVER_ORE);
     }
 }
