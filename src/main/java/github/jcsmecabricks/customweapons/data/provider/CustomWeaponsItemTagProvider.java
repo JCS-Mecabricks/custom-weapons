@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
+
 import java.util.concurrent.CompletableFuture;
 
 public class CustomWeaponsItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
@@ -15,39 +17,38 @@ public class CustomWeaponsItemTagProvider extends FabricTagsProvider.ItemTagsPro
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        valueLookupBuilder(ItemTags.SWORDS)
-                .add(ItemInit.SCYTHE)
-                .add(ItemInit.SILVER_HAMMER)
-                .add(ItemInit.SICKLES);
+        tag(ItemTags.SWORDS)
+                .add(ItemInit.getRK(ItemInit.SCYTHE))
+                .add(ItemInit.getRK(ItemInit.SILVER_HAMMER))
+                .add(ItemInit.getRK(ItemInit.SICKLES));
 
-        valueLookupBuilder(ItemTags.SWORDS)
-                .add(ItemInit.SILVER_SPEAR);
+        tag(ItemTags.SWORDS)
+                .add(ItemInit.getRK(ItemInit.SILVER_SPEAR));
 
-        valueLookupBuilder(ModTags.Items.PAXEL_MINEABLE)
-                .forceAddTag(ItemTags.PICKAXES)
-                .forceAddTag(ItemTags.SHOVELS)
-                .forceAddTag(ItemTags.AXES);
+        tag(ItemTags.AXES).add(ItemInit.getRK(Items.IRON_AXE)).add(ItemInit.getRK(ItemInit.SILVER_PAXEL));
+        tag(ItemTags.AXES).add(ItemInit.getRK(Items.IRON_SHOVEL)).add(ItemInit.getRK(ItemInit.SILVER_PAXEL));
+        tag(ItemTags.AXES).add(ItemInit.getRK(Items.IRON_PICKAXE)).add(ItemInit.getRK(ItemInit.SILVER_PAXEL));
 
-        valueLookupBuilder(ItemTags.BOW_ENCHANTABLE)
-                .add(ItemInit.COMPOUND_BOW);
+        tag(ItemTags.BOW_ENCHANTABLE)
+                .add(ItemInit.getRK(ItemInit.COMPOUND_BOW));
 
-        valueLookupBuilder(ItemTags.CROSSBOW_ENCHANTABLE)
-                .add(ItemInit.COMPOUND_BOW);
+        tag(ItemTags.CROSSBOW_ENCHANTABLE)
+                .add(ItemInit.getRK(ItemInit.COMPOUND_BOW));
 
-        valueLookupBuilder(ItemTags.TRIM_MATERIALS)
-                .add(ItemInit.SILVER);
+        tag(ItemTags.TRIM_MATERIALS)
+                .add(ItemInit.getRK(ItemInit.SILVER));
 
-        valueLookupBuilder(ItemTags.ARMOR_ENCHANTABLE)
-                .add(ItemInit.SILVER_HELMET)
-                .add(ItemInit.SILVER_CHESTPLATE)
-                .add(ItemInit.SILVER_LEGGINGS)
-                .add(ItemInit.SILVER_BOOTS);
+        tag(ItemTags.ARMOR_ENCHANTABLE)
+                .add(ItemInit.getRK(ItemInit.SILVER_HELMET))
+                .add(ItemInit.getRK(ItemInit.SILVER_CHESTPLATE))
+                .add(ItemInit.getRK(ItemInit.SILVER_LEGGINGS))
+                .add(ItemInit.getRK(ItemInit.SILVER_BOOTS));
 
-        valueLookupBuilder(ModTags.Items.SILVER)
-                .add(ItemInit.SILVER);
+        tag(ModTags.Items.SILVER)
+                .add(ItemInit.getRK(ItemInit.SILVER));
 
-        valueLookupBuilder(ModTags.Items.SHIELDS)
-                .add(ItemInit.SILVER);
+        tag(ModTags.Items.SHIELDS)
+                .add(ItemInit.getRK(ItemInit.SILVER));
 
     }
 }

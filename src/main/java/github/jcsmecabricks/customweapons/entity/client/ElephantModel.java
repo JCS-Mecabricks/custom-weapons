@@ -1,6 +1,5 @@
 package github.jcsmecabricks.customweapons.entity.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.entity.client.animation.ElephantAnimations;
 import net.minecraft.client.animation.KeyframeAnimation;
@@ -13,10 +12,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.Identifier;
-import java.util.List;
-import java.util.Map;
 
 public class ElephantModel extends EntityModel<ElephantRenderState> {
     public float originX;
@@ -212,10 +208,6 @@ public class ElephantModel extends EntityModel<ElephantRenderState> {
         copyTransform(this.LegFL);
         copyTransform(this.LegBR);
         copyTransform(this.LegBL);
-    }
-
-    public void render(PoseStack matrices, MultiBufferSource vertexConsumers, int light, ElephantRenderState state, float limbAngle, float limbDistance) {
-
     }
 
     public ModelPart getPart() {

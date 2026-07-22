@@ -4,10 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
@@ -28,7 +25,7 @@ public record LightningEnchantmentEffect(LevelBasedValue amount) implements Ench
 
             BlockPos targetPosition = living.blockPosition();
             for (int i = 0; i < numberOfStrikes; i++) {
-                EntityType.LIGHTNING_BOLT.spawn(world, targetPosition, EntitySpawnReason.TRIGGERED);
+                EntityTypes.LIGHTNING_BOLT.spawn(world, targetPosition, EntitySpawnReason.TRIGGERED);
             }
         }
     }

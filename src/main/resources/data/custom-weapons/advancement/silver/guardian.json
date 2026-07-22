@@ -16,12 +16,12 @@
     "description": {
       "translate": "advancements.silver.guardian.description"
     },
+    "frame": "challenge",
     "icon": {
-      "count": 1,
       "id": "custom-weapons:silver_hammer"
     },
     "title": {
-      "translate": "advancements.silver.guardian.title"
+      "translate": "advancements.nether.netherite_armor.title"
     }
   },
   "requirements": [
@@ -29,5 +29,8 @@
       "silver_hammer"
     ]
   ],
+  "rewards": {
+    "experience": 120
+  },
   "sends_telemetry_event": true
 }

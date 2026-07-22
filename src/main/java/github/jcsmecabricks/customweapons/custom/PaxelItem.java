@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import github.jcsmecabricks.customweapons.tags.ModTags;
 import net.fabricmc.fabric.api.item.v1.EnchantingContext;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;

@@ -20,6 +20,11 @@ public class BlockInit {
             .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "deepslate_silver_ore")))
             .strength(4.5F, 3.0F)
             .requiresCorrectToolForDrops()));
+
+    public static ResourceKey<Block> getRK(Block block) {
+        return BuiltInRegistries.BLOCK.getResourceKey(block).get();
+    }
+
     public static final Block BLOCK_OF_SILVER = registerBlock("block_of_silver", new Block(BlockBehaviour.Properties.of()
             .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "block_of_silver")))
             .strength(7.0F, 4.0F)

@@ -16,24 +16,24 @@ public class CustomWeaponsBlockTagProvider extends FabricTagsProvider.BlockTagsP
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        valueLookupBuilder(BlockTags.NEEDS_IRON_TOOL)
-               .add(BlockInit.DEEPSLATE_SILVER_ORE)
-               .add(BlockInit.BLOCK_OF_SILVER)
-               .add(BlockInit.SILVER_ORE);
+        tag(BlockTags.NEEDS_IRON_TOOL)
+               .add(BlockInit.getRK(BlockInit.DEEPSLATE_SILVER_ORE))
+                .add(BlockInit.getRK(BlockInit.BLOCK_OF_SILVER))
+                .add(BlockInit.getRK(BlockInit.SILVER_ORE));
 
-        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
-               .add(BlockInit.DEEPSLATE_SILVER_ORE)
-               .add(BlockInit.BLOCK_OF_SILVER)
-               .add(BlockInit.SILVER_ORE);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(BlockInit.getRK(BlockInit.DEEPSLATE_SILVER_ORE))
+                .add(BlockInit.getRK(BlockInit.BLOCK_OF_SILVER))
+                .add(BlockInit.getRK(BlockInit.SILVER_ORE));
 
-        valueLookupBuilder(TagList.Blocks.CUSTOMWEAPONS_TAG)
-               .add(BlockInit.DEEPSLATE_SILVER_ORE)
-               .add(BlockInit.BLOCK_OF_SILVER)
-               .add(BlockInit.SILVER_ORE);
+        tag(TagList.Blocks.CUSTOMWEAPONS_TAG)
+               .add(BlockInit.getRK(BlockInit.DEEPSLATE_SILVER_ORE))
+               .add(BlockInit.getRK(BlockInit.BLOCK_OF_SILVER))
+               .add(BlockInit.getRK(BlockInit.SILVER_ORE));
 
-        valueLookupBuilder(TagList.Blocks.INCORRECT_FOR_CUSTOMWEAPONS_TOOL);
+        tag(TagList.Blocks.INCORRECT_FOR_CUSTOMWEAPONS_TOOL);
 
-        valueLookupBuilder(ModTags.Blocks.PAXEL_MINEABLE)
+        tag(ModTags.Blocks.PAXEL_MINEABLE)
                .forceAddTag(BlockTags.MINEABLE_WITH_PICKAXE)
                .forceAddTag(BlockTags.MINEABLE_WITH_AXE)
                .forceAddTag(BlockTags.MINEABLE_WITH_SHOVEL);

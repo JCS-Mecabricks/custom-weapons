@@ -120,6 +120,10 @@ public class ItemInit {
                 function.apply(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, name)))));
     }
 
+    public static ResourceKey<Item> getRK(Item item) {
+        return BuiltInRegistries.ITEM.getResourceKey(item).get();
+    }
+
     public static <T extends Item> T register(String name, T item) {
         return Registry.register(BuiltInRegistries.ITEM, CustomWeapons.id(name), item);
     }

@@ -26,6 +26,7 @@ public class ConfiguredFeatureInit {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SILVER_GEODE_KEY = registerKey("silver_geode_ore");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+        var blocks = context.lookup(Registries.BLOCK);
         RuleTest stoneOreReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateOreReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
@@ -42,7 +43,8 @@ public class ConfiguredFeatureInit {
                         BlockStateProvider.simple(Blocks.DIRT),
                         BlockStateProvider.simple(Blocks.DEEPSLATE),
                         List.of(BlockInit.SILVER_ORE.defaultBlockState()),
-                        BlockTags.FEATURES_CANNOT_REPLACE, BlockTags.GEODE_INVALID_BLOCKS
+                        blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE),
+                        blocks.getOrThrow(BlockTags.GEODE_INVALID_BLOCKS)
                 ),
                 new GeodeLayerSettings(
                         1.5D, 1.0D, 2.0D, 3.0D
