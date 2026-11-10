@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:silver_boots"
+        "recipes": "custom-weapons:silver_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

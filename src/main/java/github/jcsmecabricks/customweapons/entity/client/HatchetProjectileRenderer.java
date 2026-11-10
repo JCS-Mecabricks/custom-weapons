@@ -4,14 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import github.jcsmecabricks.customweapons.CustomWeapons;
 import github.jcsmecabricks.customweapons.entity.custom.HatchetProjectileEntity;
-import java.util.List;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 
 public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileEntity, HatchetProjectileRenderState> {
@@ -23,37 +21,24 @@ public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileE
     }
 
     @Override
-    public void submit(HatchetProjectileRenderState state, PoseStack matrices, SubmitNodeCollector queue, CameraRenderState cameraState) {
-        matrices.pushPose();
+    public void submit(HatchetProjectileRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector,
+                       CameraRenderState camera) {
+        super.submit(state, poseStack, submitNodeCollector, camera);
+        poseStack.pushPose();
 
         if (!state.isGrounded) {
-            matrices.mulPose(Axis.YP.rotationDegrees(state.yaw));
-            matrices.mulPose(Axis.XP.rotationDegrees(state.pitch));
-            matrices.mulPose(Axis.XP.rotationDegrees(state.getRenderingRotation() * 5f));
-            matrices.translate(0, -1.0f, 0);
+            poseStack.rotate(Axis.YP.rotationDegrees(state.yaw));
+            poseStack.rotate(Axis.XP.rotationDegrees(state.spinRotation));
+            poseStack.translate(0, -1.0f, 0);
         } else {
-            matrices.mulPose(Axis.YP.rotationDegrees(state.yaw));
-            matrices.mulPose(Axis.XP.rotationDegrees(state.pitch));
-            matrices.translate(0, -0.6f, 0);
+            poseStack.rotate(Axis.YP.rotationDegrees(state.groundedOffset.y));
+            poseStack.rotate(Axis.XP.rotationDegrees(state.groundedOffset.x));
+            poseStack.translate(0, -1.0f, 0);
         }
 
-        RenderType renderType = this.model.renderType(TEXTURE);
-
-        queue.submitModel(
-                this.model,
-                state,
-                matrices,
-                renderType,
-                state.lightCoords,
-                OverlayTexture.NO_OVERLAY,
-                -1,
-                null,
-                state.outlineColor,
-                null
-        );
-
-        matrices.popPose();
-        super.submit(state, matrices, queue, cameraState);
+        submitNodeCollector.order(1).submitModel(this.model, state, poseStack, RenderTypes.entitySolid(getTextureLocation()),
+                state.lightCoords, OverlayTexture.NO_OVERLAY, -1, null, state.outlineColor);
+        poseStack.popPose();
     }
 
     @Override
@@ -65,6 +50,10 @@ public class HatchetProjectileRenderer extends EntityRenderer<HatchetProjectileE
         hatchetProjectileRenderState.getRenderingRotation = hatchetProjectile.getRenderingRotation();
         hatchetProjectileRenderState.groundedPitch = hatchetProjectile.groundedOffset.u();
         hatchetProjectileRenderState.groundedYaw = hatchetProjectile.groundedOffset.v();
+    }
+
+    public Identifier getTextureLocation() {
+        return Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "textures/entity/hatchet/hatchet.png");
     }
 
     @Override

@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:sickle"
+        "recipes": "custom-weapons:sickle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

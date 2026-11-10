@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:block_of_silver"
+        "recipes": "custom-weapons:block_of_silver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

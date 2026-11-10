@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:silver_spear"
+        "recipes": "custom-weapons:silver_spear"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -2,7 +2,6 @@ package github.jcsmecabricks.customweapons.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import github.jcsmecabricks.customweapons.CustomWeapons;
-import github.jcsmecabricks.customweapons.custom.ElephantArmorItem;
 import github.jcsmecabricks.customweapons.init.ItemInit;
 import java.util.Map;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -55,52 +54,21 @@ public class ElephantArmorFeatureRenderer extends RenderLayer<ElephantRenderStat
     }
 
     @Override
-    public void submit(PoseStack matrices, SubmitNodeCollector queue, int light, ElephantRenderState state, float limbAngle, float limbDistance) {
-        if (!state.hasArmorOn) return;
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords,
+                       ElephantRenderState state, float yRot, float xRot) {
+        if(state.bodyArmorItem != ItemStack.EMPTY) {
+            ItemStack itemStack = state.bodyArmorItem;
 
-        ItemStack stack = state.getBodyArmor;
-        if (!(stack.getItem() instanceof ElephantArmorItem armorItem)) return;
+            this.model.setupAnim(state);
+            submitNodeCollector.order(1).submitModel(this.model, state, poseStack, RenderTypes.entityCutout(ARMOR_MAP.get(itemStack.getItem())),
+                    lightCoords, OverlayTexture.NO_OVERLAY, -1, null, state.outlineColor);
 
-        // Use equipmentRenderer if armor assets are registered via registry
-        // Otherwise, use the legacy texture approach below
-        Identifier armorTexture = ARMOR_MAP.get(armorItem);
-        if (armorTexture == null) return;
-
-        this.getParentModel().copyStateTo(this.model);
-        this.model.setAngles(state);
-
-        // Submit base armor texture
-        queue.submitModel(
-                this.model,
-                state,
-                matrices,
-                RenderTypes.armorCutoutNoCull(armorTexture),
-                light,
-                OverlayTexture.NO_OVERLAY,
-                state.outlineColor,
-                null
-        );
-
-        // Blanket (dyed) layer
-        Identifier dyeTexture = getBlanketTexture(state.swag);
-        if (dyeTexture != null) {
-            queue.submitModel(
-                    this.model,
-                    state,
-                    matrices,
-                    RenderTypes.armorCutoutNoCull(dyeTexture),
-                    light,
-                    OverlayTexture.NO_OVERLAY,
-                    state.outlineColor,
-                    null
-            );
+            if(state.dyeColor != null) {
+                DyeColor dyeColor = state.dyeColor;
+                Identifier identifier = DYE_LOCATION[dyeColor.getId()];
+                submitNodeCollector.order(2).submitModel(this.model, state, poseStack, RenderTypes.entityCutout(identifier),
+                        lightCoords, OverlayTexture.NO_OVERLAY, 0);
+            }
         }
-    }
-
-    private Identifier getBlanketTexture(DyeColor dyeColor) {
-        if (dyeColor != null) {
-            return DYE_LOCATION[dyeColor.ordinal()];
-        }
-        return null;
     }
 }

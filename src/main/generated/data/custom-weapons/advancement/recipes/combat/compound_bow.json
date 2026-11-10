@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:compound_bow"
+        "recipes": "custom-weapons:compound_bow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

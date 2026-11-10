@@ -13,7 +13,9 @@ public class ElephantRenderState extends LivingEntityRenderState {
     public boolean hasChest;
     public @Nullable DyeColor swag;
     public ItemStack getBodyArmor;
-
+    public ItemStack bodyArmorItem = ItemStack.EMPTY;
+    @Nullable
+    public DyeColor dyeColor;
     public DyeColor getSwag() {
         return swag;
     }

@@ -11,37 +11,36 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
 import net.minecraft.world.level.levelgen.GeodeCrackSettings;
 import net.minecraft.world.level.levelgen.GeodeLayerSettings;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.BlockReplacement;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.GeodeFeature;
+import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import java.util.List;
 
 public class ConfiguredFeatureInit {
-    public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_SILVER_ORE_KEY = registerKey("overworld_silver_ore");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SILVER_GEODE_KEY = registerKey("silver_geode_ore");
+    public static final ResourceKey<Feature> OVERWORLD_SILVER_ORE_KEY = registerKey("overworld_silver_ore");
+    public static final ResourceKey<Feature> SILVER_GEODE_KEY = registerKey("silver_geode_ore");
 
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<Feature> context) {
         var blocks = context.lookup(Registries.BLOCK);
         RuleTest stoneOreReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateOreReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
-        List<OreConfiguration.TargetBlockState> overworldSilverTargets = List.of(
-                OreConfiguration.target(stoneOreReplaceables, BlockInit.SILVER_ORE.defaultBlockState()),
-                OreConfiguration.target(deepslateOreReplaceables, BlockInit.DEEPSLATE_SILVER_ORE.defaultBlockState()));
+        List<BlockReplacement> overworldSilverTargets = List.of(
+                BlockReplacement.replace(stoneOreReplaceables, BlockInit.SILVER_ORE.defaultBlockState()),
+                BlockReplacement.replace(deepslateOreReplaceables, BlockInit.DEEPSLATE_SILVER_ORE.defaultBlockState()));
 
-        register(context, OVERWORLD_SILVER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldSilverTargets, 4));
-        register(context, SILVER_GEODE_KEY, Feature.GEODE, new GeodeConfiguration(
+        context.register(OVERWORLD_SILVER_ORE_KEY, new OreFeature(overworldSilverTargets, 4));
+        context.register(SILVER_GEODE_KEY, new GeodeFeature(
                 new GeodeBlockSettings(
-                        BlockStateProvider.simple(Blocks.AIR),
-                        BlockStateProvider.simple(BlockInit.DEEPSLATE_SILVER_ORE),
-                        BlockStateProvider.simple(BlockInit.SILVER_ORE),
-                        BlockStateProvider.simple(Blocks.DIRT),
-                        BlockStateProvider.simple(Blocks.DEEPSLATE),
+                        BlockStateProvider.holderOf(Blocks.AIR),
+                        BlockStateProvider.holderOf(BlockInit.DEEPSLATE_SILVER_ORE),
+                        BlockStateProvider.holderOf(BlockInit.SILVER_ORE),
+                        BlockStateProvider.holderOf(Blocks.DIRT),
+                        BlockStateProvider.holderOf(Blocks.DEEPSLATE),
                         List.of(BlockInit.SILVER_ORE.defaultBlockState()),
                         blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE),
                         blocks.getOrThrow(BlockTags.GEODE_INVALID_BLOCKS)
@@ -60,13 +59,7 @@ public class ConfiguredFeatureInit {
         ));
 
     }
-    private static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, CustomWeapons.id(name));
-    }
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context,
-                                                                                   ResourceKey<ConfiguredFeature<?, ?>> key,
-                                                                                   F feature,
-                                                                                   FC featureConfig) {
-        context.register(key, new ConfiguredFeature<>(feature, featureConfig));
+    private static ResourceKey<Feature> registerKey(String name) {
+        return ResourceKey.create(Registries.FEATURE, CustomWeapons.id(name));
     }
 }

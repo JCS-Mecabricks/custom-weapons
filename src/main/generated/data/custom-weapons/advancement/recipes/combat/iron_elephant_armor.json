@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:iron_elephant_armor"
+        "recipes": "custom-weapons:iron_elephant_armor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

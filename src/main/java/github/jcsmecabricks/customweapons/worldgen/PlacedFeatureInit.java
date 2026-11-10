@@ -8,9 +8,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
@@ -25,8 +23,8 @@ public class PlacedFeatureInit {
     public static final ResourceKey<PlacedFeature> SILVER_GEODE_KEY = registerKey("silver_geode_ore");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        var configuredFeatureRegistryEntryLookup = context.lookup(Registries.CONFIGURED_FEATURE);
-        HolderGetter<ConfiguredFeature<?, ?>> registryLookup = context.lookup(Registries.CONFIGURED_FEATURE);
+        var configuredFeatureRegistryEntryLookup = context.lookup(Registries.FEATURE);
+        HolderGetter<Feature> registryLookup = context.lookup(Registries.FEATURE);
 
         register(context, OVERWORLD_SILVER_ORE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ConfiguredFeatureInit.OVERWORLD_SILVER_ORE_KEY),
                 Modifiers.modifiersWithCount(14,
@@ -45,16 +43,16 @@ public class PlacedFeatureInit {
         return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, name));
     }
 
-    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
+    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<Feature> configuration,
                                  List<PlacementModifier> modifiers) {
         context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key,
-                                                                                   Holder<ConfiguredFeature<?, ?>> configuration,
-                                                                                   PlacementModifier... modifiers) {
+    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key,
+                                 Holder<Feature> configuration, PlacementModifier... modifiers) {
         register(context, key, configuration, List.of(modifiers));
     }
+
     public static class Modifiers {
         public static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
             return List.of(countModifier, InSquarePlacement.spread(), heightModifier, BiomeFilter.biome());

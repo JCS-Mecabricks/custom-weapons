@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:hatchet"
+        "recipes": "custom-weapons:hatchet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

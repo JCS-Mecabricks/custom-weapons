@@ -54,7 +54,7 @@ public class ItemInit {
                     .enchantable(2)));
 
     public static final Item SILVER_PAXEL = registerItem("silver_paxel",
-            new PaxelItem(CustomWeaponsToolMaterials.PAXEL, new Item.Properties()
+            new PaxelItem(CustomWeaponsToolMaterials.PAXEL, 1, -2.2f, new Item.Properties()
                     .rarity(Rarity.RARE)
                     .setId(ResourceKey.create(Registries.ITEM,
                             Identifier.fromNamespaceAndPath(CustomWeapons.MOD_ID, "silver_paxel")))));

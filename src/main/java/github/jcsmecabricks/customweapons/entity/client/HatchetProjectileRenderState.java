@@ -1,6 +1,7 @@
 package github.jcsmecabricks.customweapons.entity.client;
 
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.world.phys.Vec2;
 
 public class HatchetProjectileRenderState extends EntityRenderState {
     public float yaw;
@@ -12,7 +13,8 @@ public class HatchetProjectileRenderState extends EntityRenderState {
     public float groundedPitch;
     public float groundedYaw;
     public int groundedTicks;
-
+    public float spinRotation;
+    public Vec2 groundedOffset;
     public HatchetProjectileRenderState() {
         yaw = 0f;
         pitch = 0f;

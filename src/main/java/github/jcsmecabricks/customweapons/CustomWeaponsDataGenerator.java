@@ -31,7 +31,7 @@ public class CustomWeaponsDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureInit::bootstrap);
+		registryBuilder.add(Registries.FEATURE, ConfiguredFeatureInit::bootstrap);
 		registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureInit::bootstrap);
 	}
 }

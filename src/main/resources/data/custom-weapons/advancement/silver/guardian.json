@@ -21,7 +21,7 @@
       "id": "custom-weapons:silver_hammer"
     },
     "title": {
-      "translate": "advancements.nether.netherite_armor.title"
+      "translate": "advancements.silver.hammer.title"
     }
   },
   "requirements": [

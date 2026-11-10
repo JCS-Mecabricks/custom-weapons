@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
     public static final KeyMapping.Category CUSTOM_WEAPONS_KEY_CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("key.category.custom-weapons", "main"));
@@ -28,8 +27,7 @@ public class KeyInputHandler {
     public static void register() {
         deadEyeKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 KEY_DEAD_EYE,
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_V,
+                InputConstants.KEY_V,
                 CUSTOM_WEAPONS_KEY_CATEGORY
         ));
     }

@@ -9,6 +9,8 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelTemplates;
 
+import java.util.Map;
+
 public class CustomWeaponsModelProvider extends FabricModelProvider {
     public CustomWeaponsModelProvider(FabricPackOutput output) {
         super(output);
@@ -27,10 +29,7 @@ public class CustomWeaponsModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemInit.SICKLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.declareCustomModelItem(ItemInit.HATCHET);
         itemModelGenerator.generateFlatItem(ItemInit.ELEPHANT_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateTrimmableItem(ItemInit.SILVER_HELMET, EquipmentModelInit.SILVER, ItemModelGenerators.TRIM_PREFIX_HELMET, false);
-        itemModelGenerator.generateTrimmableItem(ItemInit.SILVER_CHESTPLATE, EquipmentModelInit.SILVER, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, false);
-        itemModelGenerator.generateTrimmableItem(ItemInit.SILVER_LEGGINGS, EquipmentModelInit.SILVER, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, false);
-        itemModelGenerator.generateTrimmableItem(ItemInit.SILVER_BOOTS, EquipmentModelInit.SILVER, ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
+        itemModelGenerator.generateTrimmableArmorSet(ItemInit.SILVER_HELMET, ItemInit.SILVER_CHESTPLATE, ItemInit.SILVER_LEGGINGS, ItemInit.SILVER_BOOTS,false, Map.of());
         itemModelGenerator.generateFlatItem(ItemInit.IRON_ELEPHANT_ARMOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemInit.GOLD_ELEPHANT_ARMOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemInit.DIAMOND_ELEPHANT_ARMOR, ModelTemplates.FLAT_ITEM);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:silver_leggings"
+        "recipes": "custom-weapons:silver_leggings"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

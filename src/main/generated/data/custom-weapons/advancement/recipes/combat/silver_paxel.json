@@ -43,7 +43,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:silver_paxel"
+        "recipes": "custom-weapons:silver_paxel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

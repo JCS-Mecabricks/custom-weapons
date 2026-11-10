@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:silver_hammer"
+        "recipes": "custom-weapons:silver_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

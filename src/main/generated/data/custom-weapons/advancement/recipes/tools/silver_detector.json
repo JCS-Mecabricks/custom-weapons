@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "custom-weapons:silver_detector"
+        "recipes": "custom-weapons:silver_detector"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
